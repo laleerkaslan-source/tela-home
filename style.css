@@ -355,6 +355,48 @@ img {
   margin-bottom: 16px;
 }
 
+.about-why {
+  margin-top: 24px;
+}
+
+.about-why h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+  margin-bottom: 12px;
+}
+
+.about-checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.about-checklist li {
+  position: relative;
+  padding-left: 28px;
+  font-size: 0.95rem;
+  color: var(--gray);
+  line-height: 1.6;
+}
+
+.about-checklist li::before {
+  content: '\2705';
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.about-slogan {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--brown);
+}
+
 .about-stats {
   display: flex;
   gap: 32px;
