@@ -27,7 +27,7 @@
       <div class="header-actions">
         <a href="https://wa.me/905063977307?text=Merhaba%2C%20Tela%20Home%20%C3%BCr%C3%BCnleri%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="header-whatsapp" target="_blank" rel="noopener">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          WhatsApp
+          <span>WhatsApp</span>
         </a>
         <button class="hamburger" id="hamburger" aria-label="Menü">
           <span></span>
@@ -40,9 +40,13 @@
 
   <!-- Hero -->
   <section class="hero" id="hero">
+    <div class="hero-bg">
+      <img src="https://images.unsplash.com/photo-1616627561950-9f746e330187?w=1600&q=80" alt="Ev tekstil" loading="eager">
+    </div>
     <div class="hero-overlay"></div>
     <div class="container hero-content">
-      <h1 class="hero-title">Evinize Şıklık ve Konfor Katıyoruz</h1>
+      <p class="hero-badge">TELA HOME</p>
+      <h1 class="hero-title">Evinize Şıklık ve<br>Konfor Katıyoruz</h1>
       <p class="hero-subtitle">Kaliteli ve uygun fiyatlı ev tekstili ürünleri<br>Tela Home güvencesiyle.</p>
       <div class="hero-buttons">
         <a href="#products" class="btn btn-primary">Ürünleri İncele</a>
@@ -58,8 +62,28 @@
   <section class="section about" id="about">
     <div class="container">
       <h2 class="section-title">Tela Home Kimdir?</h2>
-      <div class="about-content">
-        <p class="about-text">Tela Home, kaliteli ev tekstili ürünlerini uygun fiyatlarla sunmak amacıyla kurulmuş bir markadır. Üreticilerle doğrudan çalışarak aracısız satış anlayışıyla müşterilerine hem kaliteli hem ekonomik ürünler sunar.</p>
+      <div class="about-wrapper">
+        <div class="about-img">
+          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80" alt="Yatak odası dekorasyonu" loading="lazy">
+        </div>
+        <div class="about-text-block">
+          <p>Tela Home, kaliteli ev tekstili ürünlerini uygun fiyatlarla sunmak amacıyla kurulmuş bir markadır.</p>
+          <p>Üreticilerle doğrudan çalışarak aracısız satış anlayışıyla müşterilerine hem kaliteli hem ekonomik ürünler sunar.</p>
+          <div class="about-stats">
+            <div class="stat">
+              <strong>500+</strong>
+              <span>Ürün Çeşidi</span>
+            </div>
+            <div class="stat">
+              <strong>10K+</strong>
+              <span>Mutlu Müşteri</span>
+            </div>
+            <div class="stat">
+              <strong>%100</strong>
+              <span>Memnuniyet</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -70,103 +94,103 @@
       <h2 class="section-title">Ürün Grupları</h2>
 
       <!-- Yatak Odası -->
-      <h3 class="category-title">🛏️ Yatak Odası</h3>
+      <h3 class="category-title">Yatak Odası</h3>
       <div class="product-grid">
         <div class="product-card">
-          <div class="product-img-placeholder">
-            <span>📸</span>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&q=80" alt="Nevresim Takımı" loading="lazy">
           </div>
           <h4>Nevresim Takımı</h4>
         </div>
         <div class="product-card">
-          <div class="product-img-placeholder">
-            <span>📸</span>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400&q=80" alt="Yatak Örtüsü" loading="lazy">
           </div>
           <h4>Yatak Örtüsü</h4>
         </div>
         <div class="product-card">
-          <div class="product-img-placeholder">
-            <span>📸</span>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1580893246395-52aead8960dc?w=400&q=80" alt="Battaniye" loading="lazy">
           </div>
           <h4>Battaniye</h4>
         </div>
         <div class="product-card">
-          <div class="product-img-placeholder">
-            <span>📸</span>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1631049552240-59c37f38802b?w=400&q=80" alt="Alez" loading="lazy">
           </div>
           <h4>Alez</h4>
         </div>
       </div>
 
       <!-- Banyo -->
-      <h3 class="category-title">🛁 Banyo</h3>
+      <h3 class="category-title">Banyo</h3>
       <div class="product-grid">
         <div class="product-card">
-          <div class="product-img-placeholder">
-            <span>📸</span>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1600369672770-985fd30004eb?w=400&q=80" alt="Havlu Setleri" loading="lazy">
           </div>
           <h4>Havlu Setleri</h4>
         </div>
       </div>
 
       <!-- Salon -->
-      <h3 class="category-title">🛋️ Salon</h3>
+      <h3 class="category-title">Salon</h3>
       <div class="product-grid">
         <div class="product-card">
-          <div class="product-img-placeholder">
-            <span>📸</span>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80" alt="Koltuk Örtüsü" loading="lazy">
           </div>
           <h4>Koltuk Örtüsü</h4>
         </div>
         <div class="product-card">
-          <div class="product-img-placeholder">
-            <span>📸</span>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1600166898405-da9535204843?w=400&q=80" alt="Post Halı" loading="lazy">
           </div>
           <h4>Post Halı</h4>
         </div>
         <div class="product-card">
-          <div class="product-img-placeholder">
-            <span>📸</span>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=400&q=80" alt="Paspas" loading="lazy">
           </div>
           <h4>Paspas</h4>
         </div>
       </div>
 
       <!-- Mutfak -->
-      <h3 class="category-title">🍽️ Mutfak</h3>
+      <h3 class="category-title">Mutfak</h3>
       <div class="product-grid">
         <div class="product-card">
-          <div class="product-img-placeholder">
-            <span>📸</span>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1507484467459-0c01be16726e?w=400&q=80" alt="Masa Örtüsü" loading="lazy">
           </div>
           <h4>Masa Örtüsü</h4>
         </div>
         <div class="product-card">
-          <div class="product-img-placeholder">
-            <span>📸</span>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1449247709967-d4461a6a6103?w=400&q=80" alt="Runner" loading="lazy">
           </div>
           <h4>Runner</h4>
         </div>
       </div>
 
       <!-- Diğer -->
-      <h3 class="category-title">📦 Diğer</h3>
+      <h3 class="category-title">Diğer</h3>
       <div class="product-grid">
         <div class="product-card">
-          <div class="product-img-placeholder">
-            <span>📸</span>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1585036156171-384164a8c159?w=400&q=80" alt="Seccade" loading="lazy">
           </div>
           <h4>Seccade</h4>
         </div>
         <div class="product-card">
-          <div class="product-img-placeholder">
-            <span>📸</span>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=80" alt="Hurç" loading="lazy">
           </div>
           <h4>Hurç</h4>
         </div>
         <div class="product-card">
-          <div class="product-img-placeholder">
-            <span>📸</span>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=400&q=80" alt="Ütü Bezi" loading="lazy">
           </div>
           <h4>Ütü Bezi</h4>
         </div>
@@ -179,8 +203,13 @@
     <div class="container">
       <h2 class="section-title">Kampanyalar</h2>
       <div class="campaign-banner">
-        <p class="campaign-text">Güncel kampanyalarımız ve fırsatlarımız için bizi takip edin!</p>
-        <a href="https://wa.me/905063977307?text=Merhaba%2C%20kampanyalar%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="btn btn-primary" target="_blank" rel="noopener">Kampanyaları Öğren</a>
+        <img src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=1200&q=80" alt="Kampanya" loading="lazy">
+        <div class="campaign-overlay"></div>
+        <div class="campaign-content">
+          <h3>Yeni Sezon Ürünleri</h3>
+          <p>Güncel kampanyalarımız ve fırsatlarımız için bizi takip edin!</p>
+          <a href="https://wa.me/905063977307?text=Merhaba%2C%20kampanyalar%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="btn btn-primary" target="_blank" rel="noopener">Kampanyaları Öğren</a>
+        </div>
       </div>
     </div>
   </section>
@@ -191,22 +220,30 @@
       <h2 class="section-title">Neden Tela Home?</h2>
       <div class="why-grid">
         <div class="why-card">
-          <div class="why-icon">✨</div>
+          <div class="why-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
           <h3>Kaliteli Ürünler</h3>
           <p>Uzun ömürlü ve şık ev tekstili</p>
         </div>
         <div class="why-card">
-          <div class="why-icon">💰</div>
+          <div class="why-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          </div>
           <h3>Uygun Fiyat</h3>
           <p>Üreticiden doğrudan satış</p>
         </div>
         <div class="why-card">
-          <div class="why-icon">📦</div>
+          <div class="why-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
           <h3>Geniş Ürün Çeşidi</h3>
           <p>Her eve uygun seçenek</p>
         </div>
         <div class="why-card">
-          <div class="why-icon">🤝</div>
+          <div class="why-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </div>
           <h3>Müşteri Memnuniyeti</h3>
           <p>Satış sonrası destek</p>
         </div>
@@ -218,21 +255,32 @@
   <section class="section store" id="store">
     <div class="container">
       <h2 class="section-title">Mağazamıza Bekleriz</h2>
-      <div class="store-content">
-        <p class="store-text">Tela Home ürünlerini yakından görmek için mağazamızı ziyaret edebilirsiniz.</p>
-        <div class="store-address">
-          <div class="store-icon">📍</div>
-          <div>
-            <p><strong>Erler Mahallesi</strong></p>
-            <p>Dumlupınar Bulvarı No:34/B/2</p>
-            <p>İç Kapı No:212</p>
-            <p>Etimesgut / Ankara</p>
-            <p class="store-note">Gerçek İstanbul Sosyete Pazarı</p>
-          </div>
+      <div class="store-wrapper">
+        <div class="store-img">
+          <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80" alt="Mağaza" loading="lazy">
         </div>
-        <div class="store-buttons">
-          <a href="https://maps.google.com/?q=Erler+Mahallesi+Dumlupınar+Bulvarı+No:34+Etimesgut+Ankara" class="btn btn-primary" target="_blank" rel="noopener">📍 Haritada Gör</a>
-          <a href="tel:+905063977307" class="btn btn-outline">📞 Hemen Ara</a>
+        <div class="store-info">
+          <p class="store-text">Tela Home ürünlerini yakından görmek için mağazamızı ziyaret edebilirsiniz.</p>
+          <div class="store-address">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--brown)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div>
+              <p><strong>Erler Mahallesi</strong></p>
+              <p>Dumlupınar Bulvarı No:34/B/2</p>
+              <p>İç Kapı No:212</p>
+              <p>Etimesgut / Ankara</p>
+              <p class="store-note">Gerçek İstanbul Sosyete Pazarı</p>
+            </div>
+          </div>
+          <div class="store-buttons">
+            <a href="https://maps.google.com/?q=Erler+Mahallesi+Dumlupınar+Bulvarı+No:34+Etimesgut+Ankara" class="btn btn-primary" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Haritada Gör
+            </a>
+            <a href="tel:+905063977307" class="btn btn-outline">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              Hemen Ara
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -243,12 +291,12 @@
     <div class="container">
       <h2 class="section-title">Bizi Instagram'da Takip Edin</h2>
       <div class="insta-grid">
-        <div class="insta-placeholder"><span>📸</span></div>
-        <div class="insta-placeholder"><span>📸</span></div>
-        <div class="insta-placeholder"><span>📸</span></div>
-        <div class="insta-placeholder"><span>📸</span></div>
-        <div class="insta-placeholder"><span>📸</span></div>
-        <div class="insta-placeholder"><span>📸</span></div>
+        <a href="#" class="insta-item"><img src="https://images.unsplash.com/photo-1616627561950-9f746e330187?w=300&q=80" alt="Instagram 1" loading="lazy"></a>
+        <a href="#" class="insta-item"><img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=300&q=80" alt="Instagram 2" loading="lazy"></a>
+        <a href="#" class="insta-item"><img src="https://images.unsplash.com/photo-1600369672770-985fd30004eb?w=300&q=80" alt="Instagram 3" loading="lazy"></a>
+        <a href="#" class="insta-item"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=300&q=80" alt="Instagram 4" loading="lazy"></a>
+        <a href="#" class="insta-item"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&q=80" alt="Instagram 5" loading="lazy"></a>
+        <a href="#" class="insta-item"><img src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=300&q=80" alt="Instagram 6" loading="lazy"></a>
       </div>
     </div>
   </section>
@@ -260,15 +308,15 @@
       <div class="contact-wrapper">
         <div class="contact-info">
           <div class="contact-item">
-            <span class="contact-icon">📍</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brown)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
             <p>Etimesgut / Ankara</p>
           </div>
           <div class="contact-item">
-            <span class="contact-icon">📞</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brown)" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
             <p><a href="tel:+905063977307">+90 506 397 73 07</a></p>
           </div>
           <div class="contact-item">
-            <span class="contact-icon">💬</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color: var(--brown)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             <p><a href="https://wa.me/905063977307?text=Merhaba%2C%20Tela%20Home%20%C3%BCr%C3%BCnleri%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener">WhatsApp ile Yazın</a></p>
           </div>
         </div>
@@ -304,8 +352,8 @@
       </div>
       <div class="footer-contact">
         <h4>İletişim</h4>
-        <p>📍 Etimesgut / Ankara</p>
-        <p>📞 <a href="tel:+905063977307">+90 506 397 73 07</a></p>
+        <p>Etimesgut / Ankara</p>
+        <p><a href="tel:+905063977307">+90 506 397 73 07</a></p>
       </div>
     </div>
     <div class="footer-bottom">
