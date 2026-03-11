@@ -1,30 +1,3 @@
-// ===== Language Switch =====
-let currentLang = 'tr';
-
-const langBtn = document.getElementById('langBtn');
-
-langBtn.addEventListener('click', () => {
-  currentLang = currentLang === 'tr' ? 'en' : 'tr';
-  updateLanguage();
-});
-
-function updateLanguage() {
-  const elements = document.querySelectorAll('[data-tr][data-en]');
-  elements.forEach(el => {
-    const text = el.getAttribute(`data-${currentLang}`);
-    if (text) {
-      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-        el.placeholder = text;
-      } else {
-        el.textContent = text;
-      }
-    }
-  });
-
-  document.documentElement.lang = currentLang;
-  langBtn.textContent = currentLang === 'tr' ? 'TR / EN' : 'EN / TR';
-}
-
 // ===== Mobile Menu =====
 const hamburger = document.getElementById('hamburger');
 const nav = document.getElementById('nav');
@@ -42,21 +15,29 @@ nav.querySelectorAll('.nav-link').forEach(link => {
   });
 });
 
+// Close menu on outside click
+document.addEventListener('click', (e) => {
+  if (!nav.contains(e.target) && !hamburger.contains(e.target)) {
+    hamburger.classList.remove('active');
+    nav.classList.remove('open');
+  }
+});
+
 // ===== Header Scroll Effect =====
 const header = document.getElementById('header');
 
 window.addEventListener('scroll', () => {
   if (window.scrollY > 50) {
-    header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
+    header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.08)';
   } else {
-    header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.06)';
+    header.style.boxShadow = 'none';
   }
 });
 
 // ===== Scroll Animations =====
 const observerOptions = {
   threshold: 0.1,
-  rootMargin: '0px 0px -50px 0px'
+  rootMargin: '0px 0px -40px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
@@ -67,8 +48,9 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, observerOptions);
 
-// Add fade-in class to animatable elements
-document.querySelectorAll('.about-card, .product-card, .feature-item, .contact-item, .contact-form').forEach(el => {
+document.querySelectorAll(
+  '.product-card, .why-card, .contact-item, .contact-form, .store-content, .about-content, .campaign-banner, .insta-placeholder'
+).forEach(el => {
   el.classList.add('fade-in');
   observer.observe(el);
 });
@@ -80,15 +62,14 @@ contactForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
   const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
+  const phone = document.getElementById('phone').value;
   const message = document.getElementById('message').value;
 
-  if (name && email && message) {
-    const successMsg = currentLang === 'tr'
-      ? 'Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağız.'
-      : 'Your message has been sent successfully! We will get back to you as soon as possible.';
-
-    alert(successMsg);
+  if (name && phone && message) {
+    // WhatsApp'a yönlendir
+    const waMessage = `Merhaba, ben ${name}. ${message} (Tel: ${phone})`;
+    const waUrl = `https://wa.me/905063977307?text=${encodeURIComponent(waMessage)}`;
+    window.open(waUrl, '_blank');
     contactForm.reset();
   }
 });

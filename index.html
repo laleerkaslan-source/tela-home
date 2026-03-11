@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tela Home - Ev Tekstil</title>
+  <meta name="description" content="Tela Home - Kaliteli ve uygun fiyatlı ev tekstili ürünleri. Nevresim, havlu, battaniye, perde ve daha fazlası.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,15 +15,20 @@
   <!-- Header -->
   <header class="header" id="header">
     <div class="container header-inner">
-      <a href="#hero" class="logo">Tela <span>Home</span></a>
+      <a href="#hero" class="logo">TELA <span>HOME</span></a>
       <nav class="nav" id="nav">
-        <a href="#about" class="nav-link" data-tr="Hakkımızda" data-en="About Us">Hakkımızda</a>
-        <a href="#products" class="nav-link" data-tr="Ürünler" data-en="Products">Ürünler</a>
-        <a href="#features" class="nav-link" data-tr="Özellikler" data-en="Features">Özellikler</a>
-        <a href="#contact" class="nav-link" data-tr="İletişim" data-en="Contact">İletişim</a>
+        <a href="#hero" class="nav-link">Ana Sayfa</a>
+        <a href="#about" class="nav-link">Hakkımızda</a>
+        <a href="#products" class="nav-link">Ürün Grupları</a>
+        <a href="#campaigns" class="nav-link">Kampanyalar</a>
+        <a href="#store" class="nav-link">Mağazamız</a>
+        <a href="#contact" class="nav-link">İletişim</a>
       </nav>
       <div class="header-actions">
-        <button class="lang-btn" id="langBtn" title="Change Language">TR / EN</button>
+        <a href="https://wa.me/905063977307?text=Merhaba%2C%20Tela%20Home%20%C3%BCr%C3%BCnleri%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="header-whatsapp" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
         <button class="hamburger" id="hamburger" aria-label="Menü">
           <span></span>
           <span></span>
@@ -34,35 +40,26 @@
 
   <!-- Hero -->
   <section class="hero" id="hero">
+    <div class="hero-overlay"></div>
     <div class="container hero-content">
-      <h1 class="hero-title" data-tr="Evinize Renk Katın" data-en="Add Color to Your Home">Evinize Renk Katın</h1>
-      <p class="hero-subtitle" data-tr="Kaliteli ev tekstil ürünleriyle yaşam alanlarınızı güzelleştirin. Tela Home ile eviniz bir sanat eserine dönüşsün." data-en="Beautify your living spaces with quality home textile products. Let your home become a work of art with Tela Home.">Kaliteli ev tekstil ürünleriyle yaşam alanlarınızı güzelleştirin. Tela Home ile eviniz bir sanat eserine dönüşsün.</p>
-      <a href="#products" class="btn btn-primary" data-tr="Ürünleri Keşfet" data-en="Explore Products">Ürünleri Keşfet</a>
+      <h1 class="hero-title">Evinize Şıklık ve Konfor Katıyoruz</h1>
+      <p class="hero-subtitle">Kaliteli ve uygun fiyatlı ev tekstili ürünleri<br>Tela Home güvencesiyle.</p>
+      <div class="hero-buttons">
+        <a href="#products" class="btn btn-primary">Ürünleri İncele</a>
+        <a href="https://wa.me/905063977307?text=Merhaba%2C%20Tela%20Home%20%C3%BCr%C3%BCnleri%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="btn btn-whatsapp" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp ile Sor
+        </a>
+      </div>
     </div>
-    <div class="hero-decoration"></div>
   </section>
 
   <!-- About -->
   <section class="section about" id="about">
     <div class="container">
-      <h2 class="section-title" data-tr="Hakkımızda" data-en="About Us">Hakkımızda</h2>
-      <p class="section-subtitle" data-tr="Tela Home olarak, evinizi daha konforlu ve şık hale getirmek için en kaliteli ev tekstil ürünlerini sunuyoruz. Yılların deneyimiyle, müşteri memnuniyetini ön planda tutarak geniş ürün yelpazemizle hizmet veriyoruz." data-en="At Tela Home, we offer the highest quality home textile products to make your home more comfortable and stylish. With years of experience, we serve you with our wide product range, prioritizing customer satisfaction.">Tela Home olarak, evinizi daha konforlu ve şık hale getirmek için en kaliteli ev tekstil ürünlerini sunuyoruz. Yılların deneyimiyle, müşteri memnuniyetini ön planda tutarak geniş ürün yelpazemizle hizmet veriyoruz.</p>
-      <div class="about-cards">
-        <div class="about-card">
-          <div class="about-card-icon">✨</div>
-          <h3 data-tr="Üstün Kalite" data-en="Superior Quality">Üstün Kalite</h3>
-          <p data-tr="Sadece en iyi kumaşları ve malzemeleri kullanarak üretilen ürünler." data-en="Products made using only the finest fabrics and materials.">Sadece en iyi kumaşları ve malzemeleri kullanarak üretilen ürünler.</p>
-        </div>
-        <div class="about-card">
-          <div class="about-card-icon">🎨</div>
-          <h3 data-tr="Geniş Çeşitlilik" data-en="Wide Variety">Geniş Çeşitlilik</h3>
-          <p data-tr="Her zevke ve tarza uygun yüzlerce farklı desen ve renk seçeneği." data-en="Hundreds of different patterns and color options to suit every taste and style.">Her zevke ve tarza uygun yüzlerce farklı desen ve renk seçeneği.</p>
-        </div>
-        <div class="about-card">
-          <div class="about-card-icon">💰</div>
-          <h3 data-tr="Uygun Fiyat" data-en="Affordable Prices">Uygun Fiyat</h3>
-          <p data-tr="Kaliteden ödün vermeden en uygun fiyatlarla ev tekstili." data-en="Home textiles at the most affordable prices without compromising quality.">Kaliteden ödün vermeden en uygun fiyatlarla ev tekstili.</p>
-        </div>
+      <h2 class="section-title">Tela Home Kimdir?</h2>
+      <div class="about-content">
+        <p class="about-text">Tela Home, kaliteli ev tekstili ürünlerini uygun fiyatlarla sunmak amacıyla kurulmuş bir markadır. Üreticilerle doğrudan çalışarak aracısız satış anlayışıyla müşterilerine hem kaliteli hem ekonomik ürünler sunar.</p>
       </div>
     </div>
   </section>
@@ -70,72 +67,188 @@
   <!-- Products -->
   <section class="section products" id="products">
     <div class="container">
-      <h2 class="section-title" data-tr="Ürün Kategorileri" data-en="Product Categories">Ürün Kategorileri</h2>
+      <h2 class="section-title">Ürün Grupları</h2>
+
+      <!-- Yatak Odası -->
+      <h3 class="category-title">🛏️ Yatak Odası</h3>
       <div class="product-grid">
         <div class="product-card">
-          <div class="product-icon">🛏️</div>
-          <h3 data-tr="Nevresim Takımları" data-en="Duvet Cover Sets">Nevresim Takımları</h3>
-          <p data-tr="Pamuklu, saten ve ranforce nevresim takımlarıyla konforlu uykular." data-en="Comfortable sleep with cotton, satin and ranforce duvet cover sets.">Pamuklu, saten ve ranforce nevresim takımlarıyla konforlu uykular.</p>
+          <div class="product-img-placeholder">
+            <span>📸</span>
+          </div>
+          <h4>Nevresim Takımı</h4>
         </div>
         <div class="product-card">
-          <div class="product-icon">🌙</div>
-          <h3 data-tr="Yatak Örtüleri" data-en="Bedspreads">Yatak Örtüleri</h3>
-          <p data-tr="Şık ve modern yatak örtüleriyle yatak odanıza yeni bir hava katın." data-en="Add a new look to your bedroom with elegant and modern bedspreads.">Şık ve modern yatak örtüleriyle yatak odanıza yeni bir hava katın.</p>
+          <div class="product-img-placeholder">
+            <span>📸</span>
+          </div>
+          <h4>Yatak Örtüsü</h4>
         </div>
         <div class="product-card">
-          <div class="product-icon">🛁</div>
-          <h3 data-tr="Havlu & Bornoz" data-en="Towels & Bathrobes">Havlu & Bornoz</h3>
-          <p data-tr="Yumuşacık havlu ve bornozlarla banyo keyfinizi artırın." data-en="Enhance your bath experience with soft towels and bathrobes.">Yumuşacık havlu ve bornozlarla banyo keyfinizi artırın.</p>
+          <div class="product-img-placeholder">
+            <span>📸</span>
+          </div>
+          <h4>Battaniye</h4>
         </div>
         <div class="product-card">
-          <div class="product-icon">🪟</div>
-          <h3 data-tr="Perde" data-en="Curtains">Perde</h3>
-          <p data-tr="Tül ve fon perde çeşitleriyle mekanlarınızı tamamlayın." data-en="Complete your spaces with tulle and blackout curtain varieties.">Tül ve fon perde çeşitleriyle mekanlarınızı tamamlayın.</p>
+          <div class="product-img-placeholder">
+            <span>📸</span>
+          </div>
+          <h4>Alez</h4>
+        </div>
+      </div>
+
+      <!-- Banyo -->
+      <h3 class="category-title">🛁 Banyo</h3>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-img-placeholder">
+            <span>📸</span>
+          </div>
+          <h4>Havlu Setleri</h4>
+        </div>
+      </div>
+
+      <!-- Salon -->
+      <h3 class="category-title">🛋️ Salon</h3>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-img-placeholder">
+            <span>📸</span>
+          </div>
+          <h4>Koltuk Örtüsü</h4>
         </div>
         <div class="product-card">
-          <div class="product-icon">☁️</div>
-          <h3 data-tr="Yastık & Yorgan" data-en="Pillows & Quilts">Yastık & Yorgan</h3>
-          <p data-tr="Ortopedik yastıklar ve sıcacık yorganlarla rahat uyku." data-en="Comfortable sleep with orthopedic pillows and warm quilts.">Ortopedik yastıklar ve sıcacık yorganlarla rahat uyku.</p>
+          <div class="product-img-placeholder">
+            <span>📸</span>
+          </div>
+          <h4>Post Halı</h4>
         </div>
         <div class="product-card">
-          <div class="product-icon">🧶</div>
-          <h3 data-tr="Battaniye" data-en="Blankets">Battaniye</h3>
-          <p data-tr="Yumuşak ve sıcacık battaniyelerle kış akşamlarının keyfini çıkarın." data-en="Enjoy winter evenings with soft and warm blankets.">Yumuşak ve sıcacık battaniyelerle kış akşamlarının keyfini çıkarın.</p>
+          <div class="product-img-placeholder">
+            <span>📸</span>
+          </div>
+          <h4>Paspas</h4>
+        </div>
+      </div>
+
+      <!-- Mutfak -->
+      <h3 class="category-title">🍽️ Mutfak</h3>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-img-placeholder">
+            <span>📸</span>
+          </div>
+          <h4>Masa Örtüsü</h4>
         </div>
         <div class="product-card">
-          <div class="product-icon">🍽️</div>
-          <h3 data-tr="Masa Örtüsü & Runner" data-en="Tablecloths & Runners">Masa Örtüsü & Runner</h3>
-          <p data-tr="Şık masa örtüleri ve runner'larla sofralarınızı güzelleştirin." data-en="Beautify your tables with elegant tablecloths and runners.">Şık masa örtüleri ve runner'larla sofralarınızı güzelleştirin.</p>
+          <div class="product-img-placeholder">
+            <span>📸</span>
+          </div>
+          <h4>Runner</h4>
+        </div>
+      </div>
+
+      <!-- Diğer -->
+      <h3 class="category-title">📦 Diğer</h3>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-img-placeholder">
+            <span>📸</span>
+          </div>
+          <h4>Seccade</h4>
+        </div>
+        <div class="product-card">
+          <div class="product-img-placeholder">
+            <span>📸</span>
+          </div>
+          <h4>Hurç</h4>
+        </div>
+        <div class="product-card">
+          <div class="product-img-placeholder">
+            <span>📸</span>
+          </div>
+          <h4>Ütü Bezi</h4>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Features -->
-  <section class="section features" id="features">
+  <!-- Campaigns -->
+  <section class="section campaigns" id="campaigns">
     <div class="container">
-      <h2 class="section-title" data-tr="Neden Tela Home?" data-en="Why Tela Home?">Neden Tela Home?</h2>
-      <div class="features-grid">
-        <div class="feature-item">
-          <div class="feature-icon">🌿</div>
-          <h3 data-tr="%100 Pamuk Ürünler" data-en="100% Cotton Products">%100 Pamuk Ürünler</h3>
-          <p data-tr="Doğal ve sağlıklı kumaşlarla üretilen ürünlerimiz cildinize zarar vermez." data-en="Our products made with natural and healthy fabrics won't harm your skin.">Doğal ve sağlıklı kumaşlarla üretilen ürünlerimiz cildinize zarar vermez.</p>
+      <h2 class="section-title">Kampanyalar</h2>
+      <div class="campaign-banner">
+        <p class="campaign-text">Güncel kampanyalarımız ve fırsatlarımız için bizi takip edin!</p>
+        <a href="https://wa.me/905063977307?text=Merhaba%2C%20kampanyalar%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="btn btn-primary" target="_blank" rel="noopener">Kampanyaları Öğren</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Tela Home -->
+  <section class="section why-us" id="why-us">
+    <div class="container">
+      <h2 class="section-title">Neden Tela Home?</h2>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">✨</div>
+          <h3>Kaliteli Ürünler</h3>
+          <p>Uzun ömürlü ve şık ev tekstili</p>
         </div>
-        <div class="feature-item">
-          <div class="feature-icon">🚚</div>
-          <h3 data-tr="Hızlı Teslimat" data-en="Fast Delivery">Hızlı Teslimat</h3>
-          <p data-tr="Siparişleriniz en kısa sürede kapınıza teslim edilir." data-en="Your orders are delivered to your door in the shortest time.">Siparişleriniz en kısa sürede kapınıza teslim edilir.</p>
+        <div class="why-card">
+          <div class="why-icon">💰</div>
+          <h3>Uygun Fiyat</h3>
+          <p>Üreticiden doğrudan satış</p>
         </div>
-        <div class="feature-item">
-          <div class="feature-icon">💎</div>
-          <h3 data-tr="Uygun Fiyat Garantisi" data-en="Price Guarantee">Uygun Fiyat Garantisi</h3>
-          <p data-tr="En kaliteli ürünleri en uygun fiyatlarla sunuyoruz." data-en="We offer the highest quality products at the most affordable prices.">En kaliteli ürünleri en uygun fiyatlarla sunuyoruz.</p>
+        <div class="why-card">
+          <div class="why-icon">📦</div>
+          <h3>Geniş Ürün Çeşidi</h3>
+          <p>Her eve uygun seçenek</p>
         </div>
-        <div class="feature-item">
-          <div class="feature-icon">📦</div>
-          <h3 data-tr="Geniş Ürün Yelpazesi" data-en="Wide Product Range">Geniş Ürün Yelpazesi</h3>
-          <p data-tr="Ev tekstilinde ihtiyacınız olan her şeyi tek çatı altında bulabilirsiniz." data-en="You can find everything you need in home textiles under one roof.">Ev tekstilinde ihtiyacınız olan her şeyi tek çatı altında bulabilirsiniz.</p>
+        <div class="why-card">
+          <div class="why-icon">🤝</div>
+          <h3>Müşteri Memnuniyeti</h3>
+          <p>Satış sonrası destek</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Store -->
+  <section class="section store" id="store">
+    <div class="container">
+      <h2 class="section-title">Mağazamıza Bekleriz</h2>
+      <div class="store-content">
+        <p class="store-text">Tela Home ürünlerini yakından görmek için mağazamızı ziyaret edebilirsiniz.</p>
+        <div class="store-address">
+          <div class="store-icon">📍</div>
+          <div>
+            <p><strong>Erler Mahallesi</strong></p>
+            <p>Dumlupınar Bulvarı No:34/B/2</p>
+            <p>İç Kapı No:212</p>
+            <p>Etimesgut / Ankara</p>
+            <p class="store-note">Gerçek İstanbul Sosyete Pazarı</p>
+          </div>
+        </div>
+        <div class="store-buttons">
+          <a href="https://maps.google.com/?q=Erler+Mahallesi+Dumlupınar+Bulvarı+No:34+Etimesgut+Ankara" class="btn btn-primary" target="_blank" rel="noopener">📍 Haritada Gör</a>
+          <a href="tel:+905063977307" class="btn btn-outline">📞 Hemen Ara</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instagram -->
+  <section class="section instagram" id="instagram">
+    <div class="container">
+      <h2 class="section-title">Bizi Instagram'da Takip Edin</h2>
+      <div class="insta-grid">
+        <div class="insta-placeholder"><span>📸</span></div>
+        <div class="insta-placeholder"><span>📸</span></div>
+        <div class="insta-placeholder"><span>📸</span></div>
+        <div class="insta-placeholder"><span>📸</span></div>
+        <div class="insta-placeholder"><span>📸</span></div>
+        <div class="insta-placeholder"><span>📸</span></div>
       </div>
     </div>
   </section>
@@ -143,51 +256,33 @@
   <!-- Contact -->
   <section class="section contact" id="contact">
     <div class="container">
-      <h2 class="section-title" data-tr="İletişim" data-en="Contact">İletişim</h2>
+      <h2 class="section-title">İletişim</h2>
       <div class="contact-wrapper">
         <div class="contact-info">
           <div class="contact-item">
             <span class="contact-icon">📍</span>
-            <div>
-              <h4 data-tr="Adres" data-en="Address">Adres</h4>
-              <p data-tr="Erler Mh. Dumlupınar Bulvarı No: 358" data-en="Erler Mh. Dumlupınar Bulvarı No: 358">Erler Mh. Dumlupınar Bulvarı No: 358</p>
-            </div>
+            <p>Etimesgut / Ankara</p>
           </div>
           <div class="contact-item">
             <span class="contact-icon">📞</span>
-            <div>
-              <h4 data-tr="Telefon" data-en="Phone">Telefon</h4>
-              <p>0506 397 73 07</p>
-            </div>
+            <p><a href="tel:+905063977307">+90 506 397 73 07</a></p>
           </div>
           <div class="contact-item">
-            <span class="contact-icon">✉️</span>
-            <div>
-              <h4>E-posta</h4>
-              <p>info@telahome.com</p>
-            </div>
-          </div>
-          <div class="social-links">
-            <a href="#" class="social-link" aria-label="Instagram">📷</a>
-            <a href="#" class="social-link" aria-label="Facebook">👥</a>
-            <a href="#" class="social-link" aria-label="Twitter">🐦</a>
-            <a href="#" class="social-link" aria-label="WhatsApp">💬</a>
+            <span class="contact-icon">💬</span>
+            <p><a href="https://wa.me/905063977307?text=Merhaba%2C%20Tela%20Home%20%C3%BCr%C3%BCnleri%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener">WhatsApp ile Yazın</a></p>
           </div>
         </div>
         <form class="contact-form" id="contactForm">
           <div class="form-group">
-            <input type="text" id="name" required placeholder=" ">
-            <label for="name" data-tr="Adınız" data-en="Your Name">Adınız</label>
+            <input type="text" id="name" required placeholder="Adınız">
           </div>
           <div class="form-group">
-            <input type="email" id="email" required placeholder=" ">
-            <label for="email" data-tr="E-posta Adresiniz" data-en="Your Email">E-posta Adresiniz</label>
+            <input type="tel" id="phone" required placeholder="Telefon Numaranız">
           </div>
           <div class="form-group">
-            <textarea id="message" rows="5" required placeholder=" "></textarea>
-            <label for="message" data-tr="Mesajınız" data-en="Your Message">Mesajınız</label>
+            <textarea id="message" rows="4" required placeholder="Mesajınız"></textarea>
           </div>
-          <button type="submit" class="btn btn-primary" data-tr="Mesaj Gönder" data-en="Send Message">Mesaj Gönder</button>
+          <button type="submit" class="btn btn-primary">Mesaj Gönder</button>
         </form>
       </div>
     </div>
@@ -197,28 +292,32 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <a href="#hero" class="logo">Tela <span>Home</span></a>
-        <p data-tr="Eviniz için en iyi ev tekstil ürünleri." data-en="The best home textile products for your home.">Eviniz için en iyi ev tekstil ürünleri.</p>
+        <a href="#hero" class="logo">TELA <span>HOME</span></a>
+        <p>Kaliteli ve uygun fiyatlı ev tekstili.</p>
       </div>
       <div class="footer-links">
-        <h4 data-tr="Hızlı Linkler" data-en="Quick Links">Hızlı Linkler</h4>
-        <a href="#about" data-tr="Hakkımızda" data-en="About Us">Hakkımızda</a>
-        <a href="#products" data-tr="Ürünler" data-en="Products">Ürünler</a>
-        <a href="#features" data-tr="Özellikler" data-en="Features">Özellikler</a>
-        <a href="#contact" data-tr="İletişim" data-en="Contact">İletişim</a>
+        <h4>Menü</h4>
+        <a href="#hero">Ana Sayfa</a>
+        <a href="#about">Hakkımızda</a>
+        <a href="#products">Ürün Grupları</a>
+        <a href="#contact">İletişim</a>
       </div>
-      <div class="footer-links">
-        <h4 data-tr="Kategoriler" data-en="Categories">Kategoriler</h4>
-        <a href="#products" data-tr="Nevresim Takımları" data-en="Duvet Cover Sets">Nevresim Takımları</a>
-        <a href="#products" data-tr="Havlu & Bornoz" data-en="Towels & Bathrobes">Havlu & Bornoz</a>
-        <a href="#products" data-tr="Perde" data-en="Curtains">Perde</a>
-        <a href="#products" data-tr="Yastık & Yorgan" data-en="Pillows & Quilts">Yastık & Yorgan</a>
+      <div class="footer-contact">
+        <h4>İletişim</h4>
+        <p>📍 Etimesgut / Ankara</p>
+        <p>📞 <a href="tel:+905063977307">+90 506 397 73 07</a></p>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 Tela Home. <span data-tr="Tüm hakları saklıdır." data-en="All rights reserved.">Tüm hakları saklıdır.</span></p>
+      <p>&copy; 2026 Tela Home. Tüm hakları saklıdır.</p>
     </div>
   </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/905063977307?text=Merhaba%2C%20Tela%20Home%20%C3%BCr%C3%BCnleri%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp ile iletişime geç">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span>WhatsApp ile Sor</span>
+  </a>
 
   <script src="script.js"></script>
 </body>
