@@ -54,12 +54,15 @@ img {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.97);
-  backdrop-filter: blur(12px);
-  transition: var(--transition);
+  background: transparent;
+  backdrop-filter: none;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
 }
 
 .header.scrolled {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
 }
 
@@ -94,7 +97,12 @@ img {
   font-size: 0.88rem;
   letter-spacing: 0.3px;
   position: relative;
-  transition: color var(--transition);
+  transition: color var(--transition), text-shadow var(--transition);
+  text-shadow: 0 0 8px rgba(255,255,255,0.5);
+}
+
+.header.scrolled .nav-link {
+  text-shadow: none;
 }
 
 .nav-link::after {
