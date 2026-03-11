@@ -76,67 +76,113 @@
 
         <!-- Info -->
         <div class="pd-info">
+          <p class="pd-brand">TELA HOME</p>
           <h1 class="pd-title">Sıvı Geçirmez Alez</h1>
           <p class="pd-subtitle">Antibakteriyel Fitted Yatak Koruyucu</p>
+
+          <!-- Price -->
+          <div class="pd-price-area">
+            <span class="pd-price" id="currentPrice">750 TL</span>
+            <span class="pd-shipping">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              Kargo Bedava
+            </span>
+          </div>
+
+          <div class="pd-divider"></div>
 
           <!-- Size Selection -->
           <div class="pd-sizes">
             <h3>Ebat Seçiniz:</h3>
             <div class="size-options">
-              <button class="size-btn" data-size="100x200" onclick="selectSize(this)">100x200</button>
-              <button class="size-btn" data-size="160x200" onclick="selectSize(this)">160x200</button>
-              <button class="size-btn" data-size="180x200" onclick="selectSize(this)">180x200</button>
-              <button class="size-btn" data-size="200x200" onclick="selectSize(this)">200x200</button>
+              <button class="size-btn" data-size="100x200" data-price="750" onclick="selectSize(this)">
+                <span class="size-label">100x200</span>
+                <span class="size-price">750 TL</span>
+              </button>
+              <button class="size-btn" data-size="160x200" data-price="850" onclick="selectSize(this)">
+                <span class="size-label">160x200</span>
+                <span class="size-price">850 TL</span>
+              </button>
+              <button class="size-btn" data-size="180x200" data-price="950" onclick="selectSize(this)">
+                <span class="size-label">180x200</span>
+                <span class="size-price">950 TL</span>
+              </button>
+              <button class="size-btn" data-size="200x200" data-price="1100" onclick="selectSize(this)">
+                <span class="size-label">200x200</span>
+                <span class="size-price">1.100 TL</span>
+              </button>
             </div>
           </div>
 
-          <!-- Quantity -->
-          <div class="pd-quantity">
-            <h3>Adet:</h3>
-            <div class="qty-controls">
+          <!-- Quantity + Add to Cart -->
+          <div class="pd-actions">
+            <div class="pd-quantity">
               <button class="qty-btn" onclick="changeQty(-1)">-</button>
               <input type="number" id="qtyInput" value="1" min="1" max="50" readonly>
               <button class="qty-btn" onclick="changeQty(1)">+</button>
             </div>
+            <button class="btn btn-primary btn-add-cart" id="addToCartBtn" onclick="addToCart()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+              Sepete Ekle
+            </button>
           </div>
-
-          <!-- Add to Cart -->
-          <button class="btn btn-primary btn-add-cart" id="addToCartBtn" onclick="addToCart()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
-            Sepete Ekle
-          </button>
 
           <div class="pd-added-msg" id="addedMsg">
             Ürün sepete eklendi!
             <a href="sepet.html">Sepete Git</a>
           </div>
 
-          <!-- Features -->
-          <div class="pd-features">
-            <h3>Ürün Özellikleri</h3>
-            <ul>
-              <li>Antibakteriyel örme kumaş ile hijyenik kullanım sunar.</li>
-              <li>Alt yüzeyde yer alan PU taban membranı sayesinde %100 sıvı geçirmez koruma sağlar.</li>
-              <li>Nefes alabilir ve terletmeyen yapıya sahiptir.</li>
-              <li>Yumuşak, sessiz ve konforlu bir yüzey sunar.</li>
-              <li>Tüm ölçülerde kenar derinliği +40 cm'dir. Kenarları kendi kumaşından fitted olarak üretilmiştir; bu sayede yüksek kalite ve uzun ömürlü kullanım sağlar.</li>
-              <li>Makinede yıkanabilir yapısı sayesinde kolay bakım imkânı sunar.</li>
-            </ul>
+          <!-- Quick Info Badges -->
+          <div class="pd-badges">
+            <div class="pd-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              %100 Sıvı Geçirmez
+            </div>
+            <div class="pd-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Antibakteriyel
+            </div>
+            <div class="pd-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Nefes Alabilir
+            </div>
+            <div class="pd-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Makinede Yıkanır
+            </div>
           </div>
+        </div>
+      </div>
 
-          <!-- Specs Table -->
-          <div class="pd-specs">
-            <h3>Ürün Detayları</h3>
-            <table>
-              <tr><td>Malzeme</td><td>Antibakteriyel Örme Kumaş + PU Membran</td></tr>
-              <tr><td>Koruma</td><td>%100 Sıvı Geçirmez</td></tr>
-              <tr><td>Kenar Derinliği</td><td>+40 cm</td></tr>
-              <tr><td>Kenar Tipi</td><td>Fitted (Lastikli)</td></tr>
-              <tr><td>Ebatlar</td><td>100x200 / 160x200 / 180x200 / 200x200</td></tr>
-              <tr><td>Yıkama</td><td>Makinede Yıkanabilir</td></tr>
-              <tr><td>Özellik</td><td>Nefes Alabilir, Terletmez, Sessiz</td></tr>
-            </table>
-          </div>
+      <!-- Tabs -->
+      <div class="pd-tabs">
+        <div class="pd-tab-nav">
+          <button class="pd-tab-btn active" onclick="openTab('features', this)">Ürün Özellikleri</button>
+          <button class="pd-tab-btn" onclick="openTab('specs', this)">Ürün Detayları</button>
+        </div>
+
+        <div class="pd-tab-content" id="tab-features">
+          <ul class="pd-feature-list">
+            <li>Antibakteriyel örme kumaş ile hijyenik kullanım sunar.</li>
+            <li>Alt yüzeyde yer alan PU taban membranı sayesinde %100 sıvı geçirmez koruma sağlar.</li>
+            <li>Nefes alabilir ve terletmeyen yapıya sahiptir.</li>
+            <li>Yumuşak, sessiz ve konforlu bir yüzey sunar.</li>
+            <li>Tüm ölçülerde kenar derinliği +40 cm'dir. Kenarları kendi kumaşından fitted olarak üretilmiştir; bu sayede yüksek kalite ve uzun ömürlü kullanım sağlar.</li>
+            <li>Makinede yıkanabilir yapısı sayesinde kolay bakım imkânı sunar.</li>
+          </ul>
+        </div>
+
+        <div class="pd-tab-content" id="tab-specs" style="display:none;">
+          <table class="pd-specs-table">
+            <tr><td>Malzeme</td><td>Antibakteriyel Örme Kumaş + PU Membran</td></tr>
+            <tr><td>Koruma</td><td>%100 Sıvı Geçirmez</td></tr>
+            <tr><td>Kenar Derinliği</td><td>+40 cm</td></tr>
+            <tr><td>Kenar Tipi</td><td>Fitted (Lastikli)</td></tr>
+            <tr><td>Ebatlar</td><td>100x200 / 160x200 / 180x200 / 200x200</td></tr>
+            <tr><td>Yıkama</td><td>Makinede Yıkanabilir</td></tr>
+            <tr><td>Özellik</td><td>Nefes Alabilir, Terletmez, Sessiz</td></tr>
+            <tr><td>Kargo</td><td>Ücretsiz Kargo</td></tr>
+          </table>
         </div>
       </div>
     </div>
@@ -158,7 +204,7 @@
       </div>
       <div class="footer-contact">
         <h4>İletişim</h4>
-        <p>Etimesgut / Ankara</p>
+        <p>Ümitköy / Ankara</p>
         <p><a href="tel:+905063977307">+90 506 397 73 07</a></p>
       </div>
     </div>
@@ -188,12 +234,17 @@
       thumb.classList.add('active');
     }
 
-    // Size selection
+    // Size + Price
+    const prices = { '100x200': 750, '160x200': 850, '180x200': 950, '200x200': 1100 };
     let selectedSize = null;
+    let selectedPrice = 750;
+
     function selectSize(btn) {
       document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       selectedSize = btn.dataset.size;
+      selectedPrice = parseInt(btn.dataset.price);
+      document.getElementById('currentPrice').textContent = selectedPrice.toLocaleString('tr-TR') + ' TL';
     }
 
     // Quantity
@@ -216,12 +267,21 @@
         id: 'alez-' + selectedSize,
         name: 'Sıvı Geçirmez Alez',
         size: selectedSize,
+        price: selectedPrice,
         qty: qty,
         image: 'images/alez/alez-1.jpg'
       };
       Cart.add(item);
       document.getElementById('addedMsg').classList.add('show');
       setTimeout(() => document.getElementById('addedMsg').classList.remove('show'), 3000);
+    }
+
+    // Tabs
+    function openTab(tab, btn) {
+      document.querySelectorAll('.pd-tab-content').forEach(c => c.style.display = 'none');
+      document.querySelectorAll('.pd-tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + tab).style.display = 'block';
+      btn.classList.add('active');
     }
   </script>
 </body>

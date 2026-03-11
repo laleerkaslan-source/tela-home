@@ -66,6 +66,15 @@
             <span>Toplam Ürün:</span>
             <span id="totalItems">0</span>
           </div>
+          <div class="summary-row">
+            <span>Kargo:</span>
+            <span style="color: var(--green); font-weight: 600;">Ücretsiz</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-row summary-total">
+            <span>Toplam:</span>
+            <span id="totalPrice">0 TL</span>
+          </div>
           <div class="summary-divider"></div>
           <a href="odeme.html" class="btn btn-primary btn-checkout" id="checkoutBtn">
             Ödemeye Geç
@@ -92,7 +101,7 @@
       </div>
       <div class="footer-contact">
         <h4>İletişim</h4>
-        <p>Etimesgut / Ankara</p>
+        <p>Ümitköy / Ankara</p>
         <p><a href="tel:+905063977307">+90 506 397 73 07</a></p>
       </div>
     </div>
@@ -135,6 +144,7 @@
             <div class="cart-item-info">
               <h4>${item.name}</h4>
               <p>Ebat: ${item.size}</p>
+              <p class="cart-item-price">${item.price ? item.price.toLocaleString('tr-TR') + ' TL' : ''}</p>
             </div>
             <div class="cart-item-qty">
               <button onclick="updateQty(${index}, -1)">-</button>
@@ -149,6 +159,8 @@
       });
 
       totalItems.textContent = totalQty + ' adet';
+      const totalPriceVal = items.reduce((sum, item) => sum + (item.price || 0) * item.qty, 0);
+      document.getElementById('totalPrice').textContent = totalPriceVal.toLocaleString('tr-TR') + ' TL';
     }
 
     function updateQty(index, delta) {
