@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /sepet.html
+Disallow: /odeme.html
+
+Sitemap: https://telahome.store/sitemap.xml
