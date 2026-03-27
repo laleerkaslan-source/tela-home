@@ -109,7 +109,7 @@
     <div class="hero-overlay"></div>
     <div class="container hero-content">
       <p class="hero-badge">TELA HOME</p>
-      <h1 class="hero-title">Evinize Şıklık ve<br>Konfor Katıyoruz</h1>
+      <h1 class="hero-title">Evinize Şıklık ve<br>Konfor Katıyoruz<span class="hero-star">✦</span></h1>
       <p class="hero-subtitle">Kaliteli ve uygun fiyatlı ev tekstili ürünleri<br>Tela Home güvencesiyle.</p>
       <div class="hero-buttons">
         <a href="#products" class="btn btn-primary">Ürünleri İncele</a>
@@ -468,6 +468,37 @@
   <script>
     // GSAP Animations
     gsap.registerPlugin(ScrollTrigger);
+
+    // Hero star - appears after title, then spins and pulses continuously
+    const starTl = gsap.timeline({delay: 1});
+    starTl.to('.hero-star', {
+      opacity: 1,
+      scale: 1.2,
+      rotation: 360,
+      duration: 0.8,
+      ease: 'back.out(2)'
+    }).to('.hero-star', {
+      rotation: 720,
+      scale: 1,
+      duration: 0.5,
+      ease: 'power2.out'
+    });
+    // Continuous slow spin + pulse
+    gsap.to('.hero-star', {
+      rotation: '+=360',
+      duration: 4,
+      repeat: -1,
+      ease: 'none',
+      delay: 2.5
+    });
+    gsap.to('.hero-star', {
+      scale: 1.3,
+      duration: 1.2,
+      repeat: -1,
+      yoyo: true,
+      ease: 'power1.inOut',
+      delay: 2.5
+    });
 
     // Header social icons - fade in on load
     gsap.from('.header-social .social-icon', {
