@@ -469,11 +469,11 @@
     // GSAP Animations
     gsap.registerPlugin(ScrollTrigger);
 
-    // Header social icons - bounce in on load
+    // Header social icons - fade in on load
     gsap.from('.header-social .social-icon', {
-      y: -30,
       opacity: 0,
-      duration: 0.6,
+      scale: 0,
+      duration: 0.5,
       stagger: 0.15,
       ease: 'back.out(1.7)',
       delay: 0.5
