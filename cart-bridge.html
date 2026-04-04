@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head><title>Cart Bridge</title></head>
+<body>
+<script>
+var ALLOWED = [
+  'https://telahome.store',
+  'https://www.telahome.store',
+  'https://alez.telahome.store',
+  'https://punch.telahome.store',
+  'https://masaortu.telahome.store'
+];
+var KEY = 'telaCart';
+
+function getCart() {
+  try { return JSON.parse(localStorage.getItem(KEY) || '[]'); }
+  catch(e) { return []; }
+}
+
+function setCart(items) {
+  localStorage.setItem(KEY, JSON.stringify(items));
+}
+
+function itemKey(item) {
+  return item.id + ':' + (item.source || '');
+}
+
+window.addEventListener('message', function(e) {
+  if (ALLOWED.indexOf(e.origin) === -1) return;
+
+  var msg = e.data;
+  if (!msg || !msg.cartBridge) return;
+
+  var action = msg.action;
+  var data = msg.data;
+  var id = msg.id;
+  var response = { cartBridge: true, id: id };
+
+  if (action === 'get') {
+    response.items = getCart();
+  }
+  else if (action === 'set') {
+    setCart(data);
+    response.items = data;
+  }
+  else if (action === 'add') {
+    var items = getCart();
+    var k = itemKey(data);
+    var idx = -1;
+    for (var i = 0; i < items.length; i++) {
+      if (itemKey(items[i]) === k) { idx = i; break; }
+    }
+    if (idx >= 0) {
+      items[idx].qty = (items[idx].qty || 0) + (data.qty || 1);
+      items[idx].price = data.price;
+      items[idx].name = data.name;
+      items[idx].image = data.image;
+      if (data.size) items[idx].size = data.size;
+    } else {
+      items.push(data);
+    }
+    setCart(items);
+    response.items = items;
+  }
+  else if (action === 'update') {
+    var cart = getCart();
+    var uk = itemKey(data);
+    for (var j = 0; j < cart.length; j++) {
+      if (itemKey(cart[j]) === uk) {
+        if (data.qty <= 0) { cart.splice(j, 1); }
+        else { cart[j].qty = data.qty; }
+        break;
+      }
+    }
+    setCart(cart);
+    response.items = cart;
+  }
+  else if (action === 'remove') {
+    var rc = getCart();
+    var rk = itemKey(data);
+    response.items = rc.filter(function(i) { return itemKey(i) !== rk; });
+    setCart(response.items);
+  }
+  else if (action === 'clear') {
+    setCart([]);
+    response.items = [];
+  }
+
+  e.source.postMessage(response, e.origin);
+});
+</script>
+</body>
+</html>
