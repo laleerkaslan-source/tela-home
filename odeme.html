@@ -13,6 +13,39 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Progress Steps */
+    .checkout-steps{display:flex;justify-content:center;gap:0;margin:0 auto 32px;max-width:480px}
+    .step{flex:1;text-align:center;position:relative;padding-bottom:8px}
+    .step-num{width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;margin-bottom:6px;border:2px solid var(--gray-light);color:var(--gray);background:#fff;transition:all 0.3s}
+    .step-label{font-size:0.78rem;color:var(--gray);display:block}
+    .step.active .step-num{background:var(--brown);color:#fff;border-color:var(--brown)}
+    .step.active .step-label{color:var(--brown-dark);font-weight:600}
+    .step.done .step-num{background:var(--green);color:#fff;border-color:var(--green)}
+    .step.done .step-label{color:var(--green-dark)}
+    .step-line{position:absolute;top:15px;left:calc(50% + 20px);right:calc(-50% + 20px);height:2px;background:var(--gray-light)}
+    .step.done .step-line,.step.active .step-line{background:var(--brown)}
+    .step:last-child .step-line{display:none}
+
+    /* Form field validation */
+    .form-group{position:relative;margin-bottom:0}
+    .form-input{padding:12px 14px;border:1.5px solid #ddd;border-radius:8px;font-size:0.95rem;width:100%;box-sizing:border-box;transition:border-color 0.2s,box-shadow 0.2s;font-family:inherit}
+    .form-input:focus{outline:none;border-color:var(--brown);box-shadow:0 0 0 3px rgba(139,111,90,0.1)}
+    .form-input.valid{border-color:var(--green)}
+    .form-input.invalid{border-color:#e53935;background:#fff5f5}
+    .form-input.invalid:focus{box-shadow:0 0 0 3px rgba(229,57,53,0.1)}
+    .field-error{font-size:0.78rem;color:#e53935;margin-top:3px;display:none;padding-left:2px}
+    .form-input.invalid + .field-error{display:block}
+    .form-label{font-size:0.8rem;font-weight:600;color:var(--brown-dark);margin-bottom:4px;display:block}
+
+    /* Secure badge */
+    .secure-badge{display:flex;align-items:center;gap:6px;justify-content:center;padding:10px;background:var(--bg);border-radius:8px;margin-top:12px;font-size:0.82rem;color:var(--gray)}
+    .secure-badge svg{flex-shrink:0}
+
+    /* Loading spinner */
+    .spinner{display:inline-block;width:18px;height:18px;border:2.5px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.6s linear infinite;vertical-align:middle;margin-right:8px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+  </style>
 </head>
 <body>
 
@@ -33,26 +66,34 @@
     </div>
   </header>
 
-  <!-- Breadcrumb -->
-  <div class="breadcrumb">
+  <!-- Progress Steps -->
+  <div style="padding:24px 0 0;background:var(--bg);">
     <div class="container">
-      <a href="index.html">Ana Sayfa</a>
-      <span>/</span>
-      <a href="sepet.html">Sepetim</a>
-      <span>/</span>
-      <strong>Ödeme</strong>
+      <div class="checkout-steps">
+        <div class="step done">
+          <span class="step-num">1</span>
+          <span class="step-label">Sepet</span>
+          <div class="step-line"></div>
+        </div>
+        <div class="step active" id="stepInfo">
+          <span class="step-num">2</span>
+          <span class="step-label">Bilgiler</span>
+          <div class="step-line"></div>
+        </div>
+        <div class="step" id="stepPay">
+          <span class="step-num">3</span>
+          <span class="step-label">Ödeme</span>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- Checkout -->
-  <section class="checkout-page">
+  <section class="checkout-page" style="padding-top:16px;">
     <div class="container">
-      <h1 class="cart-title">Ödeme</h1>
-      <div class="checkout-wrapper">
-        <div class="checkout-notice">
+      <div class="checkout-wrapper" style="max-width:640px;">
+        <div class="checkout-notice" style="text-align:left;">
           <div class="checkout-order" id="checkoutOrder"></div>
-
-          <h2>Ödeme Yöntemi Seçin</h2>
 
           <div class="checkout-methods">
             <div class="checkout-method" id="cardPayment">
@@ -60,26 +101,57 @@
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--brown)" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
                 Kredi Kartı ile Öde
               </h3>
-              <p>iyzico güvenli ödeme altyapısı ile kredi kartı veya banka kartı ile ödeme yapın.</p>
-              <form id="buyerForm" style="display:flex;flex-direction:column;gap:10px;margin-top:12px;">
+              <form id="buyerForm" style="display:flex;flex-direction:column;gap:12px;margin-top:14px;">
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-                  <input type="text" id="buyerName" placeholder="Ad *" required style="padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem;">
-                  <input type="text" id="buyerSurname" placeholder="Soyad *" required style="padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem;">
+                  <div class="form-group">
+                    <label class="form-label" for="buyerName">Ad</label>
+                    <input type="text" id="buyerName" class="form-input" placeholder="Adınız" required minlength="2" autocomplete="given-name">
+                    <div class="field-error">Lütfen adınızı girin</div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="buyerSurname">Soyad</label>
+                    <input type="text" id="buyerSurname" class="form-input" placeholder="Soyadınız" required minlength="2" autocomplete="family-name">
+                    <div class="field-error">Lütfen soyadınızı girin</div>
+                  </div>
                 </div>
-                <input type="email" id="buyerEmail" placeholder="E-posta *" required style="padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem;">
-                <input type="tel" id="buyerPhone" placeholder="Telefon *" required style="padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem;">
-                <input type="text" id="buyerAddress" placeholder="Adres *" required style="padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem;">
+                <div class="form-group">
+                  <label class="form-label" for="buyerEmail">E-posta</label>
+                  <input type="email" id="buyerEmail" class="form-input" placeholder="ornek@email.com" required autocomplete="email">
+                  <div class="field-error">Geçerli bir e-posta adresi girin</div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="buyerPhone">Telefon</label>
+                  <input type="tel" id="buyerPhone" class="form-input" placeholder="05XX XXX XX XX" required autocomplete="tel">
+                  <div class="field-error">Geçerli bir telefon numarası girin (05XX XXX XXXX)</div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="buyerAddress">Adres</label>
+                  <input type="text" id="buyerAddress" class="form-input" placeholder="Mahalle, sokak, bina no" required minlength="5" autocomplete="street-address">
+                  <div class="field-error">Lütfen teslimat adresinizi girin</div>
+                </div>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-                  <input type="text" id="buyerCity" placeholder="Şehir *" required style="padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem;">
-                  <input type="text" id="buyerZip" placeholder="Posta Kodu" style="padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem;">
+                  <div class="form-group">
+                    <label class="form-label" for="buyerCity">Şehir</label>
+                    <input type="text" id="buyerCity" class="form-input" placeholder="Şehir" required minlength="2" autocomplete="address-level1">
+                    <div class="field-error">Lütfen şehir girin</div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="buyerZip">Posta Kodu</label>
+                    <input type="text" id="buyerZip" class="form-input" placeholder="06000" autocomplete="postal-code" inputmode="numeric">
+                    <div class="field-error"></div>
+                  </div>
                 </div>
-                <button type="submit" class="btn btn-primary" id="payBtn" style="margin-top:8px;width:100%;justify-content:center;">
+                <button type="submit" class="btn btn-primary" id="payBtn" style="margin-top:4px;width:100%;justify-content:center;padding:14px;font-size:1rem;">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-                  Kredi Kartı ile Öde
+                  Ödemeye Geç
                 </button>
-                <p id="payError" style="color:red;font-size:0.85rem;display:none;margin-top:4px;"></p>
+                <p id="payError" style="color:#e53935;font-size:0.85rem;display:none;margin-top:4px;text-align:center;background:#fff5f5;padding:10px;border-radius:8px;"></p>
               </form>
               <div id="iyzicoForm" style="margin-top:16px;"></div>
+              <div class="secure-badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                256-bit SSL ile korunan güvenli ödeme - iyzico altyapısı
+              </div>
             </div>
 
             <div class="checkout-method">
@@ -132,40 +204,114 @@
       document.getElementById('nav').classList.toggle('open');
     });
 
+    // ── REAL-TIME FORM VALIDATION ──
+    const validations = {
+      buyerName: v => v.trim().length >= 2,
+      buyerSurname: v => v.trim().length >= 2,
+      buyerEmail: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
+      buyerPhone: v => /^(\+?90|0)?5\d{9}$/.test(v.replace(/[\s\-\(\)]/g, '')),
+      buyerAddress: v => v.trim().length >= 5,
+      buyerCity: v => v.trim().length >= 2
+    };
+
+    // Phone auto-format
+    document.getElementById('buyerPhone').addEventListener('input', function() {
+      let val = this.value.replace(/\D/g, '');
+      if (val.startsWith('90')) val = val.substring(2);
+      if (val.startsWith('0')) val = val.substring(1);
+      if (val.length > 10) val = val.substring(0, 10);
+      if (val.length >= 7) {
+        this.value = '0' + val.substring(0, 3) + ' ' + val.substring(3, 6) + ' ' + val.substring(6);
+      } else if (val.length >= 3) {
+        this.value = '0' + val.substring(0, 3) + ' ' + val.substring(3);
+      } else if (val.length > 0) {
+        this.value = '0' + val;
+      }
+    });
+
+    // Real-time validation on blur
+    Object.keys(validations).forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('blur', function() {
+        if (this.value.trim() === '') {
+          this.classList.remove('valid', 'invalid');
+          return;
+        }
+        const isValid = validations[id](this.value);
+        this.classList.toggle('valid', isValid);
+        this.classList.toggle('invalid', !isValid);
+      });
+      el.addEventListener('input', function() {
+        if (this.classList.contains('invalid') && validations[id](this.value)) {
+          this.classList.remove('invalid');
+          this.classList.add('valid');
+        }
+      });
+    });
+
+    // ── CART & ORDER SUMMARY ──
     const WORKER_URL = 'https://telahome-pay.laleerkaslan.workers.dev';
     const items = Cart.getItems();
     const orderDiv = document.getElementById('checkoutOrder');
     const waBtn = document.getElementById('waOrderBtn');
 
     if (items.length > 0) {
-      let html = '<h3>Sipariş Detayı:</h3><ul>';
+      let html = '<h3 style="font-family:Montserrat,sans-serif;font-size:1rem;font-weight:700;margin-bottom:12px;">Sipariş Detayı</h3>';
       let waText = 'Merhaba, sipariş vermek istiyorum:%0A';
       let total = 0;
       items.forEach(item => {
         const sizeStr = item.size ? ' - ' + item.size : '';
-        html += `<li>${item.name}${sizeStr} x${item.qty} = ${(item.price * item.qty).toLocaleString('tr-TR')} TL</li>`;
-        waText += `- ${item.name}${sizeStr} x${item.qty} (${(item.price * item.qty).toLocaleString('tr-TR')} TL)%0A`;
-        total += item.price * item.qty;
+        const lineTotal = item.price * item.qty;
+        total += lineTotal;
+        html += `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--gray-light);font-size:0.9rem;">
+          <span>${item.name}${sizeStr} <span style="color:var(--gray)">x${item.qty}</span></span>
+          <span style="font-weight:600;">${lineTotal.toLocaleString('tr-TR')} TL</span>
+        </div>`;
+        waText += `- ${item.name}${sizeStr} x${item.qty} (${lineTotal.toLocaleString('tr-TR')} TL)%0A`;
       });
-      html += `</ul><p style="font-weight:700;margin-top:8px;">Toplam: ${total.toLocaleString('tr-TR')} TL</p>`;
+      html += `<div style="display:flex;justify-content:space-between;padding:10px 0 0;font-weight:700;font-size:1.05rem;">
+        <span>Toplam</span><span style="color:var(--brown-dark);">${total.toLocaleString('tr-TR')} TL</span>
+      </div>`;
       waText += `Toplam: ${total.toLocaleString('tr-TR')} TL`;
       orderDiv.innerHTML = html;
       waBtn.href = `https://wa.me/905063977307?text=${waText}`;
 
-      // iyzico payment form
+      // ── FORM SUBMIT ──
       document.getElementById('buyerForm').addEventListener('submit', async function(e) {
         e.preventDefault();
+
+        // Validate all fields first
+        let allValid = true;
+        Object.keys(validations).forEach(id => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          const isValid = validations[id](el.value);
+          el.classList.toggle('valid', isValid);
+          el.classList.toggle('invalid', !isValid);
+          if (!isValid) {
+            allValid = false;
+            if (!document.querySelector('.form-input.invalid')) el.focus();
+          }
+        });
+
+        if (!allValid) {
+          const firstInvalid = document.querySelector('.form-input.invalid');
+          if (firstInvalid) firstInvalid.focus();
+          return;
+        }
+
         const payBtn = document.getElementById('payBtn');
         const payError = document.getElementById('payError');
         payBtn.disabled = true;
-        payBtn.textContent = 'Ödeme formu yükleniyor...';
+        payBtn.innerHTML = '<span class="spinner"></span> Ödeme formu yükleniyor...';
         payError.style.display = 'none';
 
         const buyer = {
           name: document.getElementById('buyerName').value.trim(),
           surname: document.getElementById('buyerSurname').value.trim(),
           email: document.getElementById('buyerEmail').value.trim(),
-          phone: document.getElementById('buyerPhone').value.trim(),
+          phone: document.getElementById('buyerPhone').value.replace(/[\s\-\(\)]/g, ''),
           address: document.getElementById('buyerAddress').value.trim(),
           city: document.getElementById('buyerCity').value.trim(),
           zipCode: document.getElementById('buyerZip').value.trim() || '06000'
@@ -190,9 +336,15 @@
           });
           const data = await res.json();
           if (data.status === 'success' && data.checkoutFormContent) {
+            // Update progress steps
+            document.getElementById('stepInfo').classList.remove('active');
+            document.getElementById('stepInfo').classList.add('done');
+            document.getElementById('stepPay').classList.add('active');
+
             document.getElementById('buyerForm').style.display = 'none';
+            document.querySelector('.secure-badge').style.display = 'none';
             const iyzicoDiv = document.getElementById('iyzicoForm');
-            iyzicoDiv.innerHTML = data.checkoutFormContent;
+            iyzicoDiv.innerHTML = '<p style="text-align:center;margin-bottom:12px;color:var(--brown);font-weight:600;">Kart bilgilerinizi girin</p>' + data.checkoutFormContent;
             iyzicoDiv.querySelectorAll('script').forEach(function(oldScript) {
               var newScript = document.createElement('script');
               if (oldScript.src) { newScript.src = oldScript.src; } else { newScript.textContent = oldScript.textContent; }
@@ -202,13 +354,13 @@
             payError.textContent = data.message || data.error || 'Ödeme formu oluşturulamadı. Lütfen tekrar deneyin.';
             payError.style.display = 'block';
             payBtn.disabled = false;
-            payBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Kredi Kartı ile Öde';
+            payBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Ödemeye Geç';
           }
         } catch (err) {
-          payError.textContent = 'Bağlantı hatası. Lütfen tekrar deneyin.';
+          payError.textContent = 'Bağlantı hatası. Lütfen internet bağlantınızı kontrol edip tekrar deneyin.';
           payError.style.display = 'block';
           payBtn.disabled = false;
-          payBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Kredi Kartı ile Öde';
+          payBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Ödemeye Geç';
         }
       });
     } else {
