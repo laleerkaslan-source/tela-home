@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2JCWKJ63ZS"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-2JCWKJ63ZS');</script>
+  <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","w4xtl7xrir");</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sepetim | Tela Home</title>
+  <meta name="robots" content="noindex">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -118,6 +122,28 @@
       document.getElementById('nav').classList.toggle('open');
     });
 
+    // Import cart items from subdomain via URL param
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const importData = params.get('import');
+      if (importData) {
+        try {
+          const items = JSON.parse(atob(importData));
+          if (Array.isArray(items) && items.length > 0) {
+            Cart.importItems(items);
+          }
+        } catch(e) { console.error('Cart import error:', e); }
+        // Clean URL
+        window.history.replaceState({}, '', window.location.pathname);
+      }
+    })();
+
+    const sourceLabels = {
+      'punch': 'Kırlent',
+      'masaortu': 'Masa Örtüsü',
+      'alez': 'Alez'
+    };
+
     function renderCart() {
       const items = Cart.getItems();
       const cartItems = document.getElementById('cartItems');
@@ -139,12 +165,17 @@
 
       items.forEach((item, index) => {
         totalQty += item.qty;
+        const sourceLabel = sourceLabels[item.source] || item.source || '';
+        const sizeText = item.size ? `Ebat: ${item.size}` : '';
+        const sourceTag = sourceLabel ? `<span style="display:inline-block;background:var(--beige);color:var(--brown);font-size:0.75rem;padding:2px 8px;border-radius:4px;margin-top:2px;">${sourceLabel}</span>` : '';
+
         cartItems.innerHTML += `
           <div class="cart-item">
-            <img src="${item.image}" alt="${item.name}">
+            <img src="${item.image || ''}" alt="${item.name}" onerror="this.style.display='none'">
             <div class="cart-item-info">
               <h4>${item.name}</h4>
-              <p>Ebat: ${item.size}</p>
+              <p>${sizeText}</p>
+              ${sourceTag}
               <p class="cart-item-price">${item.price ? item.price.toLocaleString('tr-TR') + ' TL' : ''}</p>
             </div>
             <div class="cart-item-qty">
