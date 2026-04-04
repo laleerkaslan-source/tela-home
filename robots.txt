@@ -2,5 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /sepet.html
 Disallow: /odeme.html
+Disallow: /odeme-sonuc.html
+Disallow: /cart-bridge.html
 
 Sitemap: https://telahome.store/sitemap.xml
