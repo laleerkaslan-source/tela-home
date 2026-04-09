@@ -82,6 +82,15 @@
         const data = await res.json();
 
         if (data.status === 'SUCCESS') {
+          // GA4 purchase event
+          if (typeof gtag === 'function') {
+            gtag('event', 'purchase', {
+              transaction_id: data.paymentId || '',
+              value: data.paidPrice ? parseFloat(data.paidPrice) : 0,
+              currency: 'TRY',
+              shipping: 0
+            });
+          }
           // Clear cart on success
           localStorage.removeItem('telaCart');
           Cart.updateCount();

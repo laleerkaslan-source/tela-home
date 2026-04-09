@@ -11,7 +11,7 @@
   <meta name="keywords" content="alez, sıvı geçirmez alez, yatak koruyucu, membran alez, fitted alez, alez fiyatları, yatak alezi, bebek alezi, tela home alez">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="author" content="Tela Home">
-  <link rel="canonical" href="https://telahome.store/alez.html">
+  <link rel="canonical" href="https://alez.telahome.store/">
   <meta property="og:title" content="Alez - Sıvı Geçirmez Yatak Koruyucu | Tela Home">
   <meta property="og:description" content="Sıvı geçirmez alez modelleri. Membran alez, fitted alez, tüm ebatlar. Ücretsiz kargo.">
   <meta property="og:url" content="https://telahome.store/alez.html">
@@ -329,6 +329,16 @@
         image: 'images/alez/alez-1.jpg'
       };
       Cart.add(item);
+
+      // GA4 add_to_cart event
+      if (typeof gtag === 'function') {
+        gtag('event', 'add_to_cart', {
+          currency: 'TRY',
+          value: selectedPrice * qty,
+          items: [{ item_id: 'alez-' + selectedSize, item_name: 'Sıvı Geçirmez Alez', price: selectedPrice, quantity: qty, item_category: 'Alez' }]
+        });
+      }
+
       document.getElementById('addedMsg').classList.add('show');
       setTimeout(() => document.getElementById('addedMsg').classList.remove('show'), 3000);
     }

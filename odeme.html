@@ -283,6 +283,15 @@
       orderDiv.innerHTML = html;
       waBtn.href = `https://wa.me/905063977307?text=${waText}`;
 
+      // GA4 begin_checkout event
+      if (typeof gtag === 'function') {
+        gtag('event', 'begin_checkout', {
+          currency: 'TRY',
+          value: total,
+          items: items.map(i => ({ item_id: i.id, item_name: i.name, price: i.price, quantity: i.qty }))
+        });
+      }
+
       // ── FORM SUBMIT ──
       document.getElementById('buyerForm').addEventListener('submit', async function(e) {
         e.preventDefault();
