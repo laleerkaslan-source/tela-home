@@ -135,6 +135,15 @@
     .freq-table tr:hover { background: #fafaf7; }
     .freq-table .freq-cell { font-weight: 700; color: var(--green-dark); }
     .freq-table .temp-cell { color: var(--brown-dark); font-weight: 600; }
+    .related-articles { margin: 50px 0 30px; }
+    .related-articles h2 { font-family: 'Montserrat',sans-serif; font-size: 1.4rem; color: var(--brown-dark); margin-bottom: 20px; padding-bottom: 8px; border-bottom: 2px solid var(--beige); }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+    .related-card { background: var(--white); border: 1px solid var(--gray-light); border-radius: var(--radius); overflow: hidden; text-decoration: none; color: inherit; transition: transform 0.3s, box-shadow 0.3s; display: block; }
+    .related-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .related-card img { width: 100%; height: 140px; object-fit: cover; }
+    .related-body { padding: 14px 16px; }
+    .related-tag { display: inline-block; background: rgba(122,166,122,0.12); color: var(--green-dark); font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 12px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.4px; }
+    .related-card h3 { font-family: 'Montserrat',sans-serif; font-size: 0.95rem; color: var(--brown-dark); line-height: 1.4; margin: 0; }
     @media (max-width: 768px) {
       .article-hero { height: 300px; }
       .article-hero-content h1 { font-size: 1.5rem; }
@@ -387,6 +396,33 @@
       <h3>Kaliteli Yatak Tekstili Tela Home'da</h3>
       <p>Hijyenik uyku için kaliteli alez, nevresim ve yastık kılıfı seçenekleri için Tela Home'u inceleyin. Ücretsiz kargo, 14 gün iade garantisi.</p>
       <a href="../#products" class="btn btn-primary">Ürünleri İncele</a>
+    </div>
+
+    <div class="related-articles">
+      <h2>İlgili Yazılar</h2>
+      <div class="related-grid">
+        <a href="ev-tekstili-bakim-rehberi.html" class="related-card">
+          <img src="https://images.unsplash.com/photo-1600369672770-985fd30004eb?w=600&q=80" alt="Ev tekstili bakım rehberi" loading="lazy">
+          <div class="related-body">
+            <span class="related-tag">Bakım</span>
+            <h3>Ev Tekstil Ürünleri Nasıl Yıkanır? Bakım Rehberi</h3>
+          </div>
+        </a>
+        <a href="alez-nasil-secilir.html" class="related-card">
+          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80" alt="Alez nasıl seçilir" loading="lazy">
+          <div class="related-body">
+            <span class="related-tag">Rehber</span>
+            <h3>Alez Nedir, Nasıl Seçilir? Doğru Alez Seçim Rehberi</h3>
+          </div>
+        </a>
+        <a href="kirlent-dekorasyon-fikirleri.html" class="related-card">
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" alt="Kırlent dekorasyon" loading="lazy">
+          <div class="related-body">
+            <span class="related-tag">Dekorasyon</span>
+            <h3>Kırlent ile Ev Dekorasyonu: Renk Uyumu ve Kombinasyon</h3>
+          </div>
+        </a>
+      </div>
     </div>
 
     <div class="article-nav">
