@@ -51,7 +51,8 @@ document.querySelectorAll(
 });
 
 // ===== Contact Form -> WhatsApp =====
-document.getElementById('contactForm').addEventListener('submit', (e) => {
+const contactForm = document.getElementById('contactForm');
+if (contactForm) contactForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
   const name = document.getElementById('name').value;
