@@ -216,7 +216,7 @@
             <div style="text-decoration:line-through;color:#a89279;font-size:1.1rem;font-weight:600;">2.990 TL</div>
             <div style="background:#d1fae5;color:#065f46;font-size:0.75rem;font-weight:700;padding:3px 10px;border-radius:50px;">%18 İNDİRİM</div>
           </div>
-          <div class="price-taxes" style="margin-top:8px;">KDV dahil · Ücretsiz kargo · Kredi kartına taksit</div>
+          <div class="price-taxes" style="margin-top:8px;">KDV dahil · Ücretsiz kargo · 14 gün iade</div>
         </div>
 
         <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:#fef3c7;border:1px solid #fbbf24;border-radius:10px;margin-bottom:16px;">
@@ -272,7 +272,7 @@
           <div class="trust-item">🚚 Ücretsiz Kargo</div>
           <div class="trust-item">↩️ 14 Gün İade</div>
           <div class="trust-item">🔒 3D Secure Ödeme</div>
-          <div class="trust-item">💳 Kartla Taksit</div>
+          <div class="trust-item">💳 Güvenli Ödeme</div>
         </div>
 
         <div class="contents-box">
@@ -456,22 +456,23 @@
 
     function addToCart() {
       const item = buildCartItem();
+      // GA4 + Meta Pixel event'leri
+      if (typeof gtag === 'function') {
+        gtag('event', 'add_to_cart', {
+          currency: 'TRY', value: item.price * item.qty,
+          items: [{ item_id: item.id, item_name: item.name, price: item.price, quantity: item.qty, item_category: 'Salon Takımı', item_variant: selectedVariant }]
+        });
+      }
+      if (typeof fbq === 'function') {
+        fbq('track', 'AddToCart', {
+          content_ids: [item.id], content_name: item.name,
+          content_type: 'product', value: item.price * item.qty, currency: 'TRY'
+        });
+      }
       SharedCart.init(function() {
         SharedCart.addItem(item).then(function() {
-          showToast(PRODUCT.name + ' (' + selectedVariant + ') sepete eklendi!');
-          // GA4 + Meta Pixel event'leri
-          if (typeof gtag === 'function') {
-            gtag('event', 'add_to_cart', {
-              currency: 'TRY', value: item.price * item.qty,
-              items: [{ item_id: item.id, item_name: item.name, price: item.price, quantity: item.qty, item_category: 'Salon Takımı', item_variant: selectedVariant }]
-            });
-          }
-          if (typeof fbq === 'function') {
-            fbq('track', 'AddToCart', {
-              content_ids: [item.id], content_name: item.name,
-              content_type: 'product', value: item.price * item.qty, currency: 'TRY'
-            });
-          }
+          // Direkt sepet sayfasına yönlendir
+          window.location.href = '/sepet.html';
         }).catch(function(err) {
           showToast('Hata: ' + (err.message || err));
         });
