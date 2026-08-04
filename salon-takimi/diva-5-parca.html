@@ -98,8 +98,28 @@
     .breadcrumb a:hover { color: var(--green); }
     .product-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: start; }
     .product-gallery { display: flex; flex-direction: column; gap: 12px; }
-    .main-img-wrap { background: var(--beige); border-radius: var(--radius); overflow: hidden; aspect-ratio: 4/3; }
+    .main-img-wrap { background: var(--beige); border-radius: var(--radius); overflow: hidden; aspect-ratio: 4/3; position: relative; cursor: zoom-in; }
     .main-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .zoom-hint { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.55); color: #fff; padding: 6px 10px; border-radius: 20px; font-size: 0.72rem; display: flex; align-items: center; gap: 5px; pointer-events: none; backdrop-filter: blur(6px); }
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 9999; display: none; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.25s ease; }
+    .lightbox.open { display: flex; opacity: 1; }
+    .lightbox-img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); user-select: none; -webkit-user-select: none; }
+    .lightbox-close { position: absolute; top: 16px; right: 16px; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.15); border: none; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); transition: background 0.2s; -webkit-tap-highlight-color: transparent; }
+    .lightbox-close:hover, .lightbox-close:active { background: rgba(255,255,255,0.28); }
+    .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.15); border: none; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); transition: background 0.2s; -webkit-tap-highlight-color: transparent; }
+    .lightbox-nav:hover, .lightbox-nav:active { background: rgba(255,255,255,0.28); }
+    .lightbox-prev { left: 16px; }
+    .lightbox-next { right: 16px; }
+    .lightbox-counter { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 0.85rem; background: rgba(0,0,0,0.5); padding: 6px 14px; border-radius: 20px; backdrop-filter: blur(6px); }
+    body.lightbox-open { overflow: hidden; }
+    @media (max-width: 640px) {
+      .lightbox { padding: 8px; }
+      .lightbox-close { top: 10px; right: 10px; }
+      .lightbox-nav { width: 40px; height: 40px; }
+      .lightbox-prev { left: 8px; }
+      .lightbox-next { right: 8px; }
+      .zoom-hint { top: 8px; right: 8px; padding: 5px 9px; font-size: 0.68rem; }
+    }
     .thumb-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
     .thumb { background: var(--beige); border-radius: 10px; overflow: hidden; aspect-ratio: 1/1; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; }
     .thumb.active { border-color: var(--brown); }
@@ -186,8 +206,12 @@
 
     <div class="product-grid">
       <div class="product-gallery">
-        <div class="main-img-wrap">
+        <div class="main-img-wrap" onclick="openLightbox()">
           <img id="mainImg" class="main-img" src="/images/salon-takimi/diva-kapucino.jpg" alt="Diva 5 parça salon takımı - Kapuçino renk">
+          <span class="zoom-hint" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            Büyüt
+          </span>
         </div>
         <div class="thumb-row">
           <div class="thumb active" data-img="/images/salon-takimi/diva-kapucino.jpg" data-variant="Kapuçino" onclick="selectImage(this)">
@@ -527,6 +551,72 @@
         if (badge) badge.textContent = total;
       });
     });
+
+    // Lightbox (galeri büyütme)
+    const GALLERY_IMAGES = [
+      { src: '/images/salon-takimi/diva-kapucino.jpg', alt: 'Diva 5 parça salon takımı - Kapuçino renk' },
+      { src: '/images/salon-takimi/diva-krem.jpg', alt: 'Diva 5 parça salon takımı - Krem renk' },
+      { src: '/images/salon-takimi/diva-gri.webp', alt: 'Diva 5 parça salon takımı - Gri renk' }
+    ];
+    let lbIdx = 0;
+
+    function openLightbox() {
+      const currentSrc = document.getElementById('mainImg').getAttribute('src');
+      lbIdx = Math.max(0, GALLERY_IMAGES.findIndex(g => g.src === currentSrc));
+      renderLightbox();
+      const lb = document.getElementById('lightbox');
+      lb.classList.add('open');
+      document.body.classList.add('lightbox-open');
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.classList.remove('lightbox-open');
+    }
+    function lbNav(delta) {
+      lbIdx = (lbIdx + delta + GALLERY_IMAGES.length) % GALLERY_IMAGES.length;
+      renderLightbox();
+    }
+    function renderLightbox() {
+      const g = GALLERY_IMAGES[lbIdx];
+      const img = document.getElementById('lightboxImg');
+      img.src = g.src;
+      img.alt = g.alt;
+      document.getElementById('lightboxCounter').textContent = (lbIdx + 1) + ' / ' + GALLERY_IMAGES.length;
+    }
+    document.addEventListener('keydown', function(e) {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowRight') lbNav(1);
+      else if (e.key === 'ArrowLeft') lbNav(-1);
+    });
+    // Arka plana tıklayınca kapat (butonlara değil)
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this || e.target.id === 'lightboxImg') closeLightbox();
+    });
+    // Mobil swipe
+    (function() {
+      let sx = 0;
+      const lb = document.getElementById('lightbox');
+      lb.addEventListener('touchstart', function(e) { sx = e.touches[0].clientX; }, { passive: true });
+      lb.addEventListener('touchend', function(e) {
+        const dx = e.changedTouches[0].clientX - sx;
+        if (Math.abs(dx) > 50) lbNav(dx > 0 ? -1 : 1);
+      }, { passive: true });
+    })();
   </script>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Ürün görsel galerisi">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Kapat">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <button class="lightbox-nav lightbox-prev" onclick="lbNav(-1)" aria-label="Önceki görsel">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="">
+    <button class="lightbox-nav lightbox-next" onclick="lbNav(1)" aria-label="Sonraki görsel">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="lightbox-counter" id="lightboxCounter">1 / 3</div>
+  </div>
 </body>
 </html>
