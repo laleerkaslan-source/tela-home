@@ -2,6 +2,15 @@
   if (window.telaCookieLoaded) return;
   window.telaCookieLoaded = true;
 
+  // Kritik dönüşüm sayfalarında banner GÖSTERME (kullanıcı dikkatinin dağılmaması için)
+  var EXCLUDE_PATHS = ['/odeme.html', '/sepet.html', '/cart-bridge.html', '/odeme-sonuc.html'];
+  var currentPath = (window.location.pathname || '').toLowerCase();
+  if (EXCLUDE_PATHS.some(function(p) { return currentPath.indexOf(p) !== -1; })) {
+    // Sadece window.telaCookieOpen fonksiyonu tanımlansın (linkten manuel açılabilsin)
+    window.telaCookieOpen = function() { window.location.href = '/cerez-politikasi.html'; };
+    return;
+  }
+
   var STORAGE_KEY = 'tela_cookie_consent_v1';
   var stored = null;
   try { stored = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch (e) {}

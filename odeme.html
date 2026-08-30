@@ -178,18 +178,11 @@
                     <div class="field-error"></div>
                   </div>
                 </div>
-                <label style="display:flex;align-items:flex-start;gap:8px;font-size:0.82rem;color:#4a4139;line-height:1.5;cursor:pointer;padding:8px 4px;margin-top:6px;">
-                  <input type="checkbox" id="kvkkCheck" required style="margin-top:2px;flex-shrink:0;accent-color:#8b7355;width:16px;height:16px;">
-                  <span><a href="/kvkk.html" target="_blank" style="color:#8b7355;text-decoration:underline;">Kişisel Verilerin Korunması Aydınlatma Metni</a>'ni okudum, kabul ediyorum. <span style="color:#e53935;">*</span></span>
+                <label id="legalCheckLabel" style="display:flex;align-items:flex-start;gap:10px;font-size:0.86rem;color:#4a4139;line-height:1.55;cursor:pointer;padding:12px;margin-top:8px;background:#faf6f1;border:1.5px solid #e8dfd3;border-radius:10px;transition:border-color 0.2s,background 0.2s;">
+                  <input type="checkbox" id="legalCheck" required style="margin-top:3px;flex-shrink:0;accent-color:#8b7355;width:18px;height:18px;">
+                  <span><a href="/kvkk.html" target="_blank" style="color:#8b7355;text-decoration:underline;">KVKK Aydınlatma Metni</a>, <a href="/on-bilgilendirme.html" target="_blank" style="color:#8b7355;text-decoration:underline;">Ön Bilgilendirme Formu</a> ve <a href="/mesafeli-satis-sozlesmesi.html" target="_blank" style="color:#8b7355;text-decoration:underline;">Mesafeli Satış Sözleşmesi</a>'ni okudum, kabul ediyorum. <span style="color:#e53935;">*</span></span>
                 </label>
-                <label style="display:flex;align-items:flex-start;gap:8px;font-size:0.82rem;color:#4a4139;line-height:1.5;cursor:pointer;padding:8px 4px;">
-                  <input type="checkbox" id="onBilgiCheck" required style="margin-top:2px;flex-shrink:0;accent-color:#8b7355;width:16px;height:16px;">
-                  <span><a href="/on-bilgilendirme.html" target="_blank" style="color:#8b7355;text-decoration:underline;">Ön Bilgilendirme Formu</a>'nu okudum, kabul ediyorum. <span style="color:#e53935;">*</span></span>
-                </label>
-                <label style="display:flex;align-items:flex-start;gap:8px;font-size:0.82rem;color:#4a4139;line-height:1.5;cursor:pointer;padding:8px 4px;">
-                  <input type="checkbox" id="mesafeliCheck" required style="margin-top:2px;flex-shrink:0;accent-color:#8b7355;width:16px;height:16px;">
-                  <span><a href="/mesafeli-satis-sozlesmesi.html" target="_blank" style="color:#8b7355;text-decoration:underline;">Mesafeli Satış Sözleşmesi</a>'ni okudum, kabul ediyorum. <span style="color:#e53935;">*</span></span>
-                </label>
+                <p id="legalCheckError" style="display:none;color:#e53935;font-size:0.82rem;margin:6px 4px 0;font-weight:600;">⚠ Devam etmek için yukarıdaki kutuyu işaretleyin.</p>
                 <button type="submit" class="btn btn-primary" id="payBtn" style="margin-top:4px;width:100%;justify-content:center;padding:14px;font-size:1rem;">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
                   Ödemeye Geç · Güvenli Ödeme
@@ -374,6 +367,22 @@
           return;
         }
 
+        // Yasal onay kontrolü - görsel geribildirimli
+        const legalCheck = document.getElementById('legalCheck');
+        const legalErr = document.getElementById('legalCheckError');
+        const legalLbl = document.getElementById('legalCheckLabel');
+        if (!legalCheck.checked) {
+          legalErr.style.display = 'block';
+          legalLbl.style.borderColor = '#e53935';
+          legalLbl.style.background = '#fff5f5';
+          legalLbl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          legalCheck.focus();
+          return;
+        }
+        legalErr.style.display = 'none';
+        legalLbl.style.borderColor = '#e8dfd3';
+        legalLbl.style.background = '#faf6f1';
+
         const payBtn = document.getElementById('payBtn');
         const payError = document.getElementById('payError');
         payBtn.disabled = true;
@@ -416,6 +425,7 @@
 
             document.getElementById('buyerForm').style.display = 'none';
             document.querySelector('.secure-badge').style.display = 'none';
+            payBtn.style.display = 'none';
             const iyzicoDiv = document.getElementById('iyzicoForm');
             iyzicoDiv.innerHTML = '<p style="text-align:center;margin-bottom:12px;color:var(--brown);font-weight:600;">Kart bilgilerinizi girin</p>' + data.checkoutFormContent;
             iyzicoDiv.querySelectorAll('script').forEach(function(oldScript) {
