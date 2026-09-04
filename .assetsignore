@@ -1,0 +1,16 @@
+# Yayina cikmamasi gereken gelistirme dosyalari
+CLAUDE.md
+README.md
+pagespeed-snapshot.md
+wrangler.jsonc
+package.json
+package-lock.json
+.gitignore
+.DS_Store
+**/.DS_Store
+.git/**
+.claude/**
+.wrangler/**
+.playwright-mcp/**
+node_modules/**
+*.png

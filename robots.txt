@@ -1,8 +1,13 @@
 User-agent: *
 Allow: /
+
+# Islem sayfalari - indekslenmemeli
 Disallow: /sepet.html
 Disallow: /odeme.html
 Disallow: /odeme-sonuc.html
 Disallow: /cart-bridge.html
+Disallow: /test-odeme.html
+Disallow: /madam-gamze.html
+Disallow: /magaza/
 
 Sitemap: https://telahome.store/sitemap.xml

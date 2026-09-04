@@ -4,3 +4,10 @@
 !.dev.vars.example
 .env*
 !.env.example
+
+# gelistirme artiklari
+.DS_Store
+**/.DS_Store
+.playwright-mcp/
+*.png
+pagespeed-snapshot.md
