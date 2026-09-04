@@ -1,0 +1,14 @@
+# GitHub Pages (Jekyll) yayin ayarlari
+# Bu dosyalar siteye kopyalanmaz - .assetsignore yalnizca Cloudflare Workers icin gecerli
+exclude:
+  - CLAUDE.md
+  - README.md
+  - pagespeed-snapshot.md
+  - wrangler.jsonc
+  - .assetsignore
+  - .wrangler
+  - .claude
+  - .playwright-mcp
+  - node_modules
+  - package.json
+  - package-lock.json

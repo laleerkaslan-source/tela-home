@@ -1,39 +1,51 @@
 # Tela Home — telahome.store
 
 Ev tekstili markası için statik e-ticaret sitesi. Build adımı yok: düz HTML/CSS/JS,
-Cloudflare Workers üzerinden statik asset olarak yayınlanıyor.
+GitHub Pages üzerinden yayınlanıyor.
 
 ## Yayın
 
+Site **GitHub Pages** ile yayınlanıyor — repo `laleerkaslan-source/tela-home`,
+kaynak `main` dalı, kök dizin. Yayınlamak için `main`'e push etmek yeterli:
+
 ```bash
-npx wrangler deploy          # kok dizinden
+git push origin main       # GitHub Pages otomatik yeniden kurar (~1 dk)
 ```
 
-`wrangler.jsonc` içindeki worker adı **`gun2`** — klasör `telahome` olarak yeniden
-adlandırıldı ama worker adını değiştirme, canlı dağıtım ona bağlı.
+Önünde **Cloudflare proxy** var (alan adı Cloudflare'da yönetiliyor, hesap:
+Laleerkaslan@gmail.com) ama içerik GitHub'dan geliyor.
 
-Alan adı Cloudflare'da yönetiliyor (hesap: Laleerkaslan@gmail.com). E-posta için
-Cloudflare Email Routing kullanılıyor, cPanel maili değil.
+`wrangler.jsonc` içindeki **`gun2`** worker'ı canlı alan adına bağlı DEĞİL —
+`npx wrangler deploy` yalnızca `gun2.laleerkaslan.workers.dev` adresini günceller,
+telahome.store'u etkilemez. Staging olarak kullanılabilir.
+
+İki ayrı hariç tutma dosyası var, ikisini de güncel tut:
+- `_config.yml` → GitHub Pages (canlı site) için geçerli olan
+- `.assetsignore` → yalnızca `gun2` worker'ı için
+
+E-posta için Cloudflare Email Routing kullanılıyor, cPanel maili değil.
 
 ## Mimari
 
-**Ana site** (bu repo) `telahome.store`. Üç alt alan adı **ayrı repolarda**:
+**Tek alan adı**: `telahome.store`. Eskiden üç ayrı alt alan adı vardı; SEO otoritesini
+böldükleri için ana alan adı altına taşındılar (2026-09-04):
 
-| Alt alan | Klasör |
-|---|---|
-| `alez.telahome.store` | `~/Projeler/alez-telahome` |
-| `punch.telahome.store` | `~/Projeler/punch-telahome` |
-| `masaortu.telahome.store` | `~/Projeler/masaortu-telahome` |
+| Eski alt alan | Yeni yol | Eski repo (arşiv) |
+|---|---|---|
+| `alez.telahome.store` | `/alez/` | `~/Projeler/alez-telahome` |
+| `punch.telahome.store` | `/kirlent/` | `~/Projeler/punch-telahome` |
+| `masaortu.telahome.store` | `/masa-ortusu/` | `~/Projeler/masaortu-telahome` |
 
-Bir alt alan adında değişiklik gerekiyorsa **o repoda** çalış, burada değil.
+Artık **tüm değişiklik bu repoda** yapılır. Eski repolar yalnızca arşiv — oraya bir şey
+yazma. Alt alan adları Cloudflare Redirect Rules ile 301 olarak yeni yollara yönlendirilmeli
+(bkz. Dikkat edilecekler).
 
 ### Sepet
 
 - Depolama: `localStorage`, anahtar **`telaCart`**. Mantık `cart.js` içindeki `Cart` nesnesinde.
-- Alt alan adları sepeti `shared-cart.js` + `cart-bridge.html` ile paylaşıyor:
-  alt alan adı `telahome.store/cart-bridge.html`'i gizli iframe olarak yükler ve
-  `postMessage` ile konuşur. Böylece sepet tüm alt alan adlarında ortak kalır.
-- `cart-bridge.html` veya `shared-cart.js`'te değişiklik yaparsan üç alt alan adını da test et.
+- Tüm bölümler artık aynı alan adında olduğu için sepet doğal olarak paylaşılıyor.
+  `shared-cart.js` + `cart-bridge.html` köprüsü geçiş süresince duruyor; alt alan adı
+  yönlendirmeleri doğrulandıktan sonra sadeleştirilebilir.
 
 ### Ödeme
 
