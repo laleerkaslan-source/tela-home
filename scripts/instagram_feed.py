@@ -21,8 +21,12 @@ BAS, BIT = "<!-- INSTAGRAM:BASLANGIC -->", "<!-- INSTAGRAM:BITIS -->"
 
 
 def istek(url):
-    with urllib.request.urlopen(url, timeout=30) as r:
-        return json.loads(r.read().decode())
+    try:
+        with urllib.request.urlopen(url, timeout=30) as r:
+            return json.loads(r.read().decode())
+    except urllib.error.HTTPError as e:
+        govde = e.read().decode(errors="replace")[:600]
+        raise RuntimeError(f"HTTP {e.code} - Meta yaniti: {govde}") from None
 
 
 def gonderileri_al(token):
@@ -79,6 +83,7 @@ def main():
     if not token:
         print("IG_TOKEN yok - atlaniyor", file=sys.stderr); return 0
 
+    print(f"anahtar onegi: {token[:4]}...  uzunluk: {len(token)}", file=sys.stderr)
     try:
         ham = gonderileri_al(token)
     except Exception as e:
