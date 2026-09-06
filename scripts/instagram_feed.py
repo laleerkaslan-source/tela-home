@@ -29,11 +29,49 @@ def istek(url):
         raise RuntimeError(f"HTTP {e.code} - Meta yaniti: {govde}") from None
 
 
-def gonderileri_al(token):
-    alanlar = "id,caption,media_type,media_url,thumbnail_url,permalink,timestamp"
+ALANLAR = "id,caption,media_type,media_url,thumbnail_url,permalink,timestamp"
+FB_API  = "https://graph.facebook.com"
+
+
+def _ig_login_ile(token):
+    """Instagram Login anahtari (IGAA.../IGQ...) -> graph.instagram.com"""
     url = f"{API}/me/media?" + urllib.parse.urlencode(
-        {"fields": alanlar, "limit": ADET * 3, "access_token": token})
+        {"fields": ALANLAR, "limit": ADET * 3, "access_token": token})
     return istek(url).get("data", [])
+
+
+def _fb_login_ile(token):
+    """Facebook Login anahtari (EAA...) -> sayfa uzerinden Instagram hesabi"""
+    sayfalar = istek(f"{FB_API}/me/accounts?" + urllib.parse.urlencode(
+        {"fields": "id,name,instagram_business_account", "access_token": token})).get("data", [])
+    if not sayfalar:
+        raise RuntimeError(
+            "Bu anahtarla hicbir Facebook sayfasi gorunmuyor. Instagram hesabinin bir "
+            "Facebook sayfasina bagli olmasi ve anahtarin pages_show_list + "
+            "instagram_basic izinlerini tasimasi gerekiyor.")
+    ig_id = None
+    for sf in sayfalar:
+        hesap = sf.get("instagram_business_account")
+        if hesap:
+            ig_id = hesap["id"]
+            print(f"  Instagram hesabi bulundu (sayfa: {sf.get('name')})", file=sys.stderr)
+            break
+    if not ig_id:
+        adlar = ", ".join(sf.get("name", "?") for sf in sayfalar)
+        raise RuntimeError(
+            f"Sayfalar bulundu ({adlar}) ama hicbirine Instagram profesyonel hesabi "
+            "bagli degil. Facebook sayfasi ayarlarindan Instagram hesabini baglaman gerekiyor.")
+    url = f"{FB_API}/{ig_id}/media?" + urllib.parse.urlencode(
+        {"fields": ALANLAR, "limit": ADET * 3, "access_token": token})
+    return istek(url).get("data", [])
+
+
+def gonderileri_al(token):
+    if token.startswith("IG"):
+        print("  anahtar turu: Instagram Login", file=sys.stderr)
+        return _ig_login_ile(token)
+    print("  anahtar turu: Facebook Login (sayfa uzerinden)", file=sys.stderr)
+    return _fb_login_ile(token)
 
 
 def kapak_url(g):
