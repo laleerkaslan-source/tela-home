@@ -702,6 +702,22 @@ img {
   align-items: center;
 }
 
+/* Magaza kucuk resim seridi */
+.store-thumbs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.store-img .store-thumbs img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
 .store-img {
   border-radius: var(--radius);
   overflow: hidden;
@@ -1905,6 +1921,10 @@ img {
   .store-wrapper {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+
+  .store-img .store-thumbs img {
+    height: 80px;
   }
 
   .store-img img {
