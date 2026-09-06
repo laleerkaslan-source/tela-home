@@ -800,33 +800,33 @@ img {
   margin-top: 24px;
 }
 
-.insta-embed {
-  min-height: 120px;
-}
-
-.insta-embed iframe {
-  width: 100%;
-  border: 0;
-  overflow: hidden;
-  display: block;
-}
-
-.insta-fallback {
+.insta-bos {
   text-align: center;
-  padding: 40px 24px;
-  border: 1px dashed var(--gray-light, #e8dfd3);
-  border-radius: var(--radius);
   color: var(--gray, #7a7067);
+  padding: 32px 16px;
+  font-size: 0.95rem;
 }
 
-.insta-fallback svg { color: var(--brown, #8b7355); margin-bottom: 12px; }
+/* Reels/video gonderilerde oynat rozeti */
+.insta-video {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+}
 
-.insta-fallback p {
-  margin: 0 0 16px;
-  font-size: 0.95rem;
-  max-width: 460px;
-  margin-left: auto;
-  margin-right: auto;
+.insta-video::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 7px;
+  border-style: solid;
+  border-width: 5px 0 5px 8px;
+  border-color: transparent transparent transparent #fff;
 }
 
 .insta-grid {

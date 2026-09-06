@@ -1,0 +1,62 @@
+name: Instagram akisini guncelle
+
+on:
+  schedule:
+    - cron: '0 6 * * *'      # her gun 06:00 UTC (TR 09:00)
+  workflow_dispatch:          # elle de calistirilabilir
+
+permissions:
+  contents: write
+
+jobs:
+  guncelle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Pillow kur
+        run: pip install --quiet Pillow
+
+      - name: Gonderileri cek ve sayfaya bas
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: python3 scripts/instagram_feed.py
+
+      - name: Degisiklikleri isle
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Degisiklik yok."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html images/instagram
+          git commit -m "Instagram akisi guncellendi (otomatik)"
+          git push
+
+      - name: Erisim anahtarini yenile
+        continue-on-error: true
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          GH_TOKEN: ${{ secrets.SECRETS_PAT }}
+        run: |
+          if [ -z "$IG_TOKEN" ]; then
+            echo "IG_TOKEN yok, yenileme atlandi."
+            exit 0
+          fi
+          yeni=$(curl -sf "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=$IG_TOKEN" \
+                 | python3 -c 'import sys,json; print(json.load(sys.stdin).get("access_token",""))' || true)
+          if [ -z "$yeni" ]; then
+            echo "::warning::Anahtar yenilenemedi. Suresi dolmadan Meta panelinden yeni anahtar uretip IG_TOKEN sirrini guncelle."
+            exit 0
+          fi
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::warning::SECRETS_PAT tanimli degil - anahtar yenilendi ama kaydedilemedi. 60 gunde bir elle guncellemen gerekecek."
+            exit 0
+          fi
+          gh secret set IG_TOKEN --body "$yeni" --repo "$GITHUB_REPOSITORY"
+          echo "Erisim anahtari yenilendi (60 gun daha gecerli)."
