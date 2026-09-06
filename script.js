@@ -44,7 +44,7 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll(
-  '.product-card, .why-card, .contact-item, .contact-form, .about-wrapper, .store-wrapper, .campaign-banner, .insta-item, .about-stats .stat'
+  '.product-card, .why-card, .contact-item, .contact-form, .about-wrapper, .store-wrapper, .campaign-banner, .about-stats .stat'
 ).forEach(el => {
   el.classList.add('fade-in');
   observer.observe(el);
@@ -65,3 +65,48 @@ if (contactForm) contactForm.addEventListener('submit', (e) => {
     e.target.reset();
   }
 });
+
+// ===== Instagram akisi (LightWidget) =====
+// KVKK: ucuncu parti icerik yalnizca pazarlama cerezi onayi varken yuklenir.
+(function () {
+  const box = document.getElementById('instaEmbed');
+  if (!box) return;
+
+  const CONSENT_KEY = 'tela_cookie_consent_v1';
+
+  function marketingOnayliMi() {
+    try {
+      const raw = localStorage.getItem(CONSENT_KEY);
+      return !!(raw && JSON.parse(raw).marketing);
+    } catch (e) { return false; }
+  }
+
+  function yukle() {
+    const id = (box.dataset.lwId || '').trim();
+    if (!id || box.dataset.yuklendi === '1') return;
+    if (!marketingOnayliMi()) return;
+
+    const fb = document.getElementById('instaFallback');
+    if (fb) fb.remove();
+
+    const frame = document.createElement('iframe');
+    frame.src = 'https://cdn.lightwidget.com/widgets/' + id + '.html';
+    frame.title = 'Tela Home Instagram gönderileri';
+    frame.scrolling = 'no';
+    frame.loading = 'lazy';
+    frame.className = 'lightwidget-widget';
+    box.appendChild(frame);
+
+    if (!document.getElementById('lightwidgetScript')) {
+      const sc = document.createElement('script');
+      sc.id = 'lightwidgetScript';
+      sc.src = 'https://cdn.lightwidget.com/widgets/lightwidget.js';
+      sc.async = true;
+      document.body.appendChild(sc);
+    }
+    box.dataset.yuklendi = '1';
+  }
+
+  yukle();
+  document.addEventListener('telaConsentChange', yukle);
+})();

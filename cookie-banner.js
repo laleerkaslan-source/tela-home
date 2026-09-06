@@ -127,6 +127,10 @@
         'ad_personalization': pref.marketing ? 'granted' : 'denied'
       });
     }
+    // Onay degisikligini dinleyen bilesenler icin (or. Instagram akisi)
+    try {
+      document.dispatchEvent(new CustomEvent('telaConsentChange', { detail: data }));
+    } catch (e) {}
   };
 
   window.telaCookieOpen = function() {
