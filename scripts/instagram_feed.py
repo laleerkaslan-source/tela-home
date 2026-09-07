@@ -125,7 +125,11 @@ def main():
     try:
         ham = gonderileri_al(token)
     except Exception as e:
-        print(f"Instagram API hatasi: {e}", file=sys.stderr); return 1
+        # Anahtar/izin henuz hazir degilse gorevi kirmizi yakma:
+        # mevcut sayfa oldugu gibi kalir, log'a uyari birakilir.
+        print(f"::warning::Instagram akisi guncellenemedi: {e}")
+        print(f"Instagram API hatasi: {e}", file=sys.stderr)
+        return 0
     if not ham:
         print("Gonderi donmedi - mevcut icerik korunuyor", file=sys.stderr); return 0
 
