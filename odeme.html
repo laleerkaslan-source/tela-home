@@ -71,7 +71,9 @@
   </header>
 
   <!-- Progress Steps -->
-  <div style="padding:24px 0 0;background:var(--bg);">
+  <!-- 90px ust bosluk sabit header'i telafi eder (bkz. .breadcrumb kurali).
+       Bu sayfada breadcrumb yok, telafi burada yapiliyor. -->
+  <div style="padding:90px 0 0;background:var(--bg);">
     <div class="container">
       <div class="checkout-steps">
         <div class="step done">
@@ -100,8 +102,8 @@
           <div class="checkout-order" id="checkoutOrder"></div>
 
           <!-- Güven Pençesi -->
-          <div style="background:linear-gradient(135deg,#f5ede0,#faf6f1);border-radius:12px;padding:16px 20px;margin:14px 0;border:1px solid #e8dfd3;">
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;text-align:center;">
+          <div style="background:linear-gradient(135deg,#f5ede0,#faf6f1);border-radius:12px;padding:16px 20px;margin:14px 0;border:1px solid #e8dfd3;width:100%;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:10px;text-align:center;">
               <div style="font-size:0.78rem;color:#6b5740;font-weight:600;line-height:1.4;">
                 <div style="font-size:1.4rem;margin-bottom:2px;">🔒</div>
                 <div>256-bit SSL</div>
