@@ -420,7 +420,7 @@
             </button>
           </div>
 
-          <a href="#" class="btn btn-buy-now" id="buyNowBtn" onclick="openCargoModal(event)">
+          <a href="/odeme.html" class="btn btn-buy-now" id="buyNowBtn" onclick="hemenSatinAl(event)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
             Hemen Satın Al - Kredi Kartı ile Öde
           </a>
@@ -968,12 +968,7 @@
       selectedSize = btn.dataset.size;
       selectedPrice = parseInt(btn.dataset.price);
       document.getElementById('currentPrice').textContent = selectedPrice.toLocaleString('tr-TR') + ' TL';
-      const buyBtn = document.getElementById('buyNowBtn');
-      if (paymentLinks[selectedSize]) {
-        buyBtn.style.display = 'flex';
-      } else {
-        buyBtn.style.display = 'none';
-      }
+      // Tum ebatlar site ici odeme akisindan gecer; dugme her zaman gorunur.
     }
 
     function openCargoModal(e) {
@@ -1077,10 +1072,30 @@
       input.value = val;
     }
 
-    function addToCart() {
+    // Hemen Satin Al: urunu sepete atar ve dogrudan odeme adimina gecer.
+    function hemenSatinAl(e) {
+      e.preventDefault();
+      if (!selectedSize) { alert('Lütfen bir ebat seçiniz.'); return; }
+      addToCart(true);
+      var qty = parseInt(document.getElementById('qtyInput').value) || 1;
+      var tutar = selectedPrice * qty;
+      gtag('event', 'begin_checkout', {
+        'value': tutar, 'currency': 'TRY',
+        'items': [{ 'item_id': 'alez-' + selectedSize, 'item_name': 'Sıvı Geçirmez Alez', 'price': selectedPrice, 'quantity': qty }]
+      });
+      if (typeof fbq === 'function') {
+        fbq('track', 'InitiateCheckout', {
+          content_ids: ['alez-' + selectedSize], content_name: 'Sıvı Geçirmez Alez',
+          value: tutar, currency: 'TRY'
+        });
+      }
+      window.location.href = '/odeme.html';
+    }
+
+    function addToCart(sessiz) {
       if (!selectedSize) { alert('Lütfen bir ebat seçiniz.'); return; }
       var qty = parseInt(document.getElementById('qtyInput').value);
-      Cart.add({ id: 'alez-' + selectedSize, name: 'Sıvı Geçirmez Alez', size: selectedSize, price: selectedPrice, qty: qty, image: 'images/alez/alez-1.jpg' });
+      Cart.add({ id: 'alez-' + selectedSize, name: 'Sıvı Geçirmez Alez', size: selectedSize, price: selectedPrice, qty: qty, image: '/alez/images/alez/alez-1.jpg' });
       // GA4 + Google Ads sepete ekleme takibi
       gtag('event', 'add_to_cart', {
         'value': selectedPrice * qty,
@@ -1097,9 +1112,11 @@
           currency: 'TRY'
         });
       }
-      document.getElementById('cartPopupDetail').textContent = selectedSize + ' - ' + selectedPrice.toLocaleString('tr-TR') + ' TL × ' + qty;
-      document.getElementById('cartPopupOverlay').classList.add('show');
-      document.getElementById('cartPopup').classList.add('show');
+      if (!sessiz) {
+        document.getElementById('cartPopupDetail').textContent = selectedSize + ' - ' + selectedPrice.toLocaleString('tr-TR') + ' TL × ' + qty;
+        document.getElementById('cartPopupOverlay').classList.add('show');
+        document.getElementById('cartPopup').classList.add('show');
+      }
       updateStickyCart();
     }
 

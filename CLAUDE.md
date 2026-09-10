@@ -43,9 +43,13 @@ yazma. Alt alan adları Cloudflare Redirect Rules ile 301 olarak yeni yollara y�
 ### Sepet
 
 - Depolama: `localStorage`, anahtar **`telaCart`**. Mantık `cart.js` içindeki `Cart` nesnesinde.
-- Tüm bölümler artık aynı alan adında olduğu için sepet doğal olarak paylaşılıyor.
-  `shared-cart.js` + `cart-bridge.html` köprüsü geçiş süresince duruyor; alt alan adı
-  yönlendirmeleri doğrulandıktan sonra sadeleştirilebilir.
+- Tüm bölümler aynı alan adında olduğu için sepet doğrudan `localStorage`'a yazılıyor.
+  `shared-cart.js` içindeki `AYNI_ORIGIN` bayrağı iframe köprüsünü devre dışı bırakır;
+  köprü (`cart-bridge.html`) yalnızca alt alan adı döneminin kalıntısı.
+- **Sepete eklenen görsel yolları mutlak olmalı** (`/alez/images/...`). Göreli yol
+  verilirse sepet başka bir sayfada çizildiğinde 404 veriyor.
+- Ürün sayfalarındaki "Hemen Satın Al" düğmeleri sepete ekleyip `/odeme.html`'e gider
+  (iyzico akışı). QNB Pay sabit linkleri artık kullanılmıyor.
 
 ### Ödeme
 

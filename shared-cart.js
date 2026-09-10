@@ -38,10 +38,15 @@
     });
   }
 
+  // Alt alan adlari 2026-09'da telahome.store altina tasindi; artik tum
+  // sayfalar ayni origin'de calisiyor ve sepet dogrudan localStorage'da.
+  // iframe koprusu yalnizca gecis donemi icindi, devre disi.
+  var AYNI_ORIGIN = true;
+
   window.SharedCart = {
     init: function(callback) {
       // On main domain, use localStorage directly
-      if (window.location.hostname === 'telahome.store' || window.location.hostname === 'www.telahome.store') {
+      if (AYNI_ORIGIN) {
         ready = true;
         if (callback) callback();
         return;
@@ -84,7 +89,7 @@
 
     getItems: function() {
       // Main domain: direct localStorage
-      if (window.location.hostname === 'telahome.store' || window.location.hostname === 'www.telahome.store') {
+      if (AYNI_ORIGIN) {
         try { cachedItems = JSON.parse(localStorage.getItem('telaCart') || '[]'); }
         catch(e) { cachedItems = []; }
         return Promise.resolve(cachedItems);
@@ -96,7 +101,7 @@
     },
 
     addItem: function(item) {
-      if (window.location.hostname === 'telahome.store' || window.location.hostname === 'www.telahome.store') {
+      if (AYNI_ORIGIN) {
         var items = JSON.parse(localStorage.getItem('telaCart') || '[]');
         var key = item.id + ':' + (item.source || '');
         var idx = items.findIndex(function(i) { return (i.id + ':' + (i.source || '')) === key; });
@@ -120,7 +125,7 @@
     },
 
     updateItem: function(id, source, qty) {
-      if (window.location.hostname === 'telahome.store' || window.location.hostname === 'www.telahome.store') {
+      if (AYNI_ORIGIN) {
         var items = JSON.parse(localStorage.getItem('telaCart') || '[]');
         var key = id + ':' + (source || '');
         var idx = items.findIndex(function(i) { return (i.id + ':' + (i.source || '')) === key; });
@@ -139,7 +144,7 @@
     },
 
     removeItem: function(id, source) {
-      if (window.location.hostname === 'telahome.store' || window.location.hostname === 'www.telahome.store') {
+      if (AYNI_ORIGIN) {
         var items = JSON.parse(localStorage.getItem('telaCart') || '[]');
         var key = id + ':' + (source || '');
         items = items.filter(function(i) { return (i.id + ':' + (i.source || '')) !== key; });
@@ -154,7 +159,7 @@
     },
 
     setItems: function(items) {
-      if (window.location.hostname === 'telahome.store' || window.location.hostname === 'www.telahome.store') {
+      if (AYNI_ORIGIN) {
         localStorage.setItem('telaCart', JSON.stringify(items));
         cachedItems = items;
         return Promise.resolve(items);
@@ -166,7 +171,7 @@
     },
 
     clear: function() {
-      if (window.location.hostname === 'telahome.store' || window.location.hostname === 'www.telahome.store') {
+      if (AYNI_ORIGIN) {
         localStorage.setItem('telaCart', '[]');
         cachedItems = [];
         return Promise.resolve([]);
