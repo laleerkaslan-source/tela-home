@@ -184,7 +184,18 @@
       padding: 12px 20px;
       min-height: 44px;
     }
-  </style>
+  
+    /* SSS (GEO: yapay zeka asistanlarinin dogrudan alintiladigi bolum) */
+    .th-faq{max-width:820px;margin:48px auto 8px;padding:0 20px}
+    .th-faq h2{font-family:'Montserrat',sans-serif;font-size:1.5rem;color:#3a2f24;text-align:center;margin:0 0 24px}
+    .th-faq details{background:#fff;border:1px solid #e8dfd3;border-radius:10px;margin-bottom:10px;overflow:hidden}
+    .th-faq summary{cursor:pointer;padding:16px 44px 16px 18px;font-weight:600;color:#3a2f24;font-size:0.95rem;position:relative;list-style:none}
+    .th-faq summary::-webkit-details-marker{display:none}
+    .th-faq summary::after{content:'+';position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:1.3rem;color:#8b7355;line-height:1}
+    .th-faq details[open] summary::after{content:'\2212'}
+    .th-faq details[open] summary{border-bottom:1px solid #f0e9de}
+    .th-faq p{margin:0;padding:14px 18px 18px;color:#5a5048;font-size:0.92rem;line-height:1.75}
+</style>
 </head>
 <body>
 
@@ -348,7 +359,68 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="footer">
+    <section class="th-faq">
+    <h2>Sıkça Sorulan Sorular</h2>
+    <details>
+      <summary>Jumbo masa örtüsü hangi ölçülerde var?</summary>
+      <p>Jumbo masa örtüsü 140×140 cm kareden 160×500 cm uzun dikdörtgene kadar 10 farklı ölçüde üretilir. Küçük mutfak masasından uzun yemek masasına ve toplantı masasına kadar farklı boyutlara uygun seçenek bulunur.</p>
+    </details>
+    <details>
+      <summary>Jumbo masa örtüsü hangi renklerde?</summary>
+      <p>Krem, beyaz ve gri tüm ölçülerde mevcuttur. Mor, kapuçino, taş, pudra, siyah, bordo ve yeşil renkler 160×220 cm ölçüsünde sunulur. Toplam 10 renk seçeneği vardır.</p>
+    </details>
+    <details>
+      <summary>Jumbo masa örtüsü fiyatı ne kadar?</summary>
+      <p>Fiyat seçilen ölçüye göre 850 TL ile 2.250 TL arasında değişir. Küçük ölçüler 850 TL&#x27;den başlar, en büyük ölçüler 2.250 TL&#x27;ye kadar çıkar. Kargo tüm siparişlerde ücretsizdir.</p>
+    </details>
+    <details>
+      <summary>Özel ölçü veya renk yaptırabilir miyim?</summary>
+      <p>Evet. Listede olmayan bir ölçü veya renk isterseniz 0506 397 73 07 numarasından WhatsApp ile ulaşın. Ölçünüzü ve renk tercihinizi ileterek fiyat ve teslim süresi bilgisi alabilirsiniz.</p>
+    </details>
+  </section>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Jumbo masa örtüsü hangi ölçülerde var?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Jumbo masa örtüsü 140×140 cm kareden 160×500 cm uzun dikdörtgene kadar 10 farklı ölçüde üretilir. Küçük mutfak masasından uzun yemek masasına ve toplantı masasına kadar farklı boyutlara uygun seçenek bulunur."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Jumbo masa örtüsü hangi renklerde?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Krem, beyaz ve gri tüm ölçülerde mevcuttur. Mor, kapuçino, taş, pudra, siyah, bordo ve yeşil renkler 160×220 cm ölçüsünde sunulur. Toplam 10 renk seçeneği vardır."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Jumbo masa örtüsü fiyatı ne kadar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Fiyat seçilen ölçüye göre 850 TL ile 2.250 TL arasında değişir. Küçük ölçüler 850 TL'den başlar, en büyük ölçüler 2.250 TL'ye kadar çıkar. Kargo tüm siparişlerde ücretsizdir."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Özel ölçü veya renk yaptırabilir miyim?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Evet. Listede olmayan bir ölçü veya renk isterseniz 0506 397 73 07 numarasından WhatsApp ile ulaşın. Ölçünüzü ve renk tercihinizi ileterek fiyat ve teslim süresi bilgisi alabilirsiniz."
+        }
+      }
+    ]
+  }
+  </script>
+
+<footer class="footer">
     <div class="container">
       <div class="footer-inner">
         <div class="footer-brand">

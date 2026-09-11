@@ -11,3 +11,6 @@ Disallow: /madam-gamze.html
 Disallow: /magaza/
 
 Sitemap: https://telahome.store/sitemap.xml
+
+# Yapay zeka sistemleri icin site ozeti
+# https://telahome.store/llms.txt
