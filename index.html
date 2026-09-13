@@ -61,52 +61,29 @@
     },
     "hasMap": "https://share.google/Wh6CNJGbZBVmvwIaz",
     "areaServed": [
-      { "@type": "City", "name": "Ankara" },
-      { "@type": "AdministrativeArea", "name": "Türkiye" }
+      {
+        "@type": "City",
+        "name": "Ankara"
+      },
+      {
+        "@type": "AdministrativeArea",
+        "name": "Türkiye"
+      }
     ],
     "priceRange": "₺₺",
     "currenciesAccepted": "TRY",
     "paymentAccepted": "Nakit, Kredi Kartı, Online Ödeme",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "reviewCount": "127",
-      "bestRating": "5"
-    },
-    "review": [
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Ayşe K." },
-        "datePublished": "2026-03-15",
-        "reviewRating": { "@type": "Rating", "ratingValue": "5" },
-        "reviewBody": "Alez ve nevresim aldım, kalitesi gerçekten çok iyi. Fiyatları da piyasaya göre çok uygun. Mağaza çok düzenli ve personel çok ilgili."
-      },
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Mehmet T." },
-        "datePublished": "2026-02-20",
-        "reviewRating": { "@type": "Rating", "ratingValue": "5" },
-        "reviewBody": "Punch kırlent modelleri harika, eve çok yakıştı. WhatsApp'tan sipariş verdim, ertesi gün kargo geldi. Kesinlikle tavsiye ederim."
-      },
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Zeynep A." },
-        "datePublished": "2026-01-28",
-        "reviewRating": { "@type": "Rating", "ratingValue": "5" },
-        "reviewBody": "Masa örtüsü arayışındaydım, burada çok güzel seçenekler buldum. Jakarlı masa örtüsü aldım, kumaş kalitesi mükemmel."
-      },
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Fatma Y." },
-        "datePublished": "2026-03-02",
-        "reviewRating": { "@type": "Rating", "ratingValue": "4" },
-        "reviewBody": "Sosyete Pazarı'ndaki mağazalarını ziyaret ettim, ürün çeşitliliği çok iyi. Fiyatlar gerçekten uygun. Koltuk örtüsü ve havlu aldım, memnun kaldım."
-      }
-    ],
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "dayOfWeek": [
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
         "opens": "09:00",
         "closes": "19:00"
       }
@@ -220,6 +197,23 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    /* Google yorumlari */
+    .g-reviews{max-width:1000px;margin:48px auto;padding:0 20px}
+    .g-reviews-head{text-align:center;margin-bottom:8px}
+    .g-reviews-head h2{font-size:1.5rem;color:#3a2f24;margin:0 0 8px}
+    .g-reviews-note{text-align:center;font-size:0.85rem;color:#7a7067;margin:0 0 26px}
+    .g-reviews-note a{color:#8b7355;font-weight:600}
+    .g-reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+    .g-review{background:#fff;border:1px solid #e8dfd3;border-radius:12px;padding:18px}
+    .g-review-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+    .g-review-av{width:36px;height:36px;border-radius:50%;background:#8b7355;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;flex:0 0 auto}
+    .g-review-who{min-width:0}
+    .g-review-name{font-weight:600;color:#3a2f24;font-size:0.92rem;line-height:1.2}
+    .g-review-meta{font-size:0.72rem;color:#9a9088;margin-top:2px}
+    .g-review-stars{color:#f59e0b;font-size:0.85rem;letter-spacing:1px;margin-bottom:6px}
+    .g-review p{margin:0;color:#5a5048;font-size:0.9rem;line-height:1.7}
+  </style>
 </head>
 <body>
 
@@ -527,42 +521,66 @@
   </section>
 
   <!-- Reviews -->
-  <section class="section reviews" id="reviews">
-    <div class="container">
-      <h2 class="section-title">Müşterilerimiz Ne Diyor?</h2>
-      <div class="reviews-grid">
-        <div class="review-card">
-          <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="review-text">"Alez ve nevresim aldım, kalitesi gerçekten çok iyi. Fiyatları da piyasaya göre çok uygun. Mağaza çok düzenli ve personel çok ilgili."</p>
-          <div class="review-author">
-            <strong>Ayşe K.</strong>
-            <span>Ankara</span>
+  <section class="g-reviews">
+    <div class="g-reviews-head">
+      <h2>Müşterilerimiz Ne Diyor?</h2>
+    </div>
+    <p class="g-reviews-note">Aşağıdaki yorumlar mağazamızın <a href="https://share.google/Wh6CNJGbZBVmvwIaz" target="_blank" rel="noopener">Google İşletme Profili</a>'nden alınmıştır. Güncel puan ve tüm yorumlar için profilimize bakabilirsiniz.</p>
+    <div class="g-reviews-grid">
+      <div class="g-review">
+        <div class="g-review-top">
+          <div class="g-review-av">E</div>
+          <div class="g-review-who">
+            <div class="g-review-name">Elif Babacan</div>
+            <div class="g-review-meta">Yerel Rehber · 51 yorum · 20 hafta önce</div>
           </div>
         </div>
-        <div class="review-card">
-          <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="review-text">"Punch kırlent modelleri harika, eve çok yakıştı. WhatsApp'tan sipariş verdim, ertesi gün kargo geldi. Kesinlikle tavsiye ederim."</p>
-          <div class="review-author">
-            <strong>Mehmet T.</strong>
-            <span>Ankara</span>
+        <div class="g-review-stars">★★★★★</div>
+        <p>Ürün çeşitliliği bol, aldığımız her ürün kaliteli. Aradığımız her şeyi bulabiliyoruz.</p>
+      </div>
+      <div class="g-review">
+        <div class="g-review-top">
+          <div class="g-review-av">T</div>
+          <div class="g-review-who">
+            <div class="g-review-name">tünay demirörs</div>
+            <div class="g-review-meta">Yerel Rehber · 22 yorum · 30 hafta önce</div>
           </div>
         </div>
-        <div class="review-card">
-          <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="review-text">"Masa örtüsü arayışındaydım, burada çok güzel seçenekler buldum. Jakarlı masa örtüsü aldım, kumaş kalitesi mükemmel."</p>
-          <div class="review-author">
-            <strong>Zeynep A.</strong>
-            <span>İstanbul</span>
+        <div class="g-review-stars">★★★★★</div>
+        <p>Tüm nevresimlerimi burdan alıyorum, gerçekten hepsi çok iyi çıktı. Ürünler harika, fiyatları çok uygun, çok ilgililer. Şiddetle tavsiye ediyorum.</p>
+      </div>
+      <div class="g-review">
+        <div class="g-review-top">
+          <div class="g-review-av">Ö</div>
+          <div class="g-review-who">
+            <div class="g-review-name">Özge Kürkçü</div>
+            <div class="g-review-meta">3 yorum · 30 hafta önce</div>
           </div>
         </div>
-        <div class="review-card">
-          <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
-          <p class="review-text">"Sosyete Pazarı'ndaki mağazalarını ziyaret ettim, ürün çeşitliliği çok iyi. Fiyatlar gerçekten uygun. Koltuk örtüsü ve havlu aldım, memnun kaldım."</p>
-          <div class="review-author">
-            <strong>Fatma Y.</strong>
-            <span>Ankara</span>
+        <div class="g-review-stars">★★★★★</div>
+        <p>Ürünlerin kalitesi güzelliği mükemmel, hiç tereddüt etmeden herkese tavsiye ederim. Ayrıca ilgi, alaka ve kibar yaklaşım için teşekkür ederim.</p>
+      </div>
+      <div class="g-review">
+        <div class="g-review-top">
+          <div class="g-review-av">D</div>
+          <div class="g-review-who">
+            <div class="g-review-name">Dilek Özdem Şahin</div>
+            <div class="g-review-meta">10 yorum · 30 hafta önce</div>
           </div>
         </div>
+        <div class="g-review-stars">★★★★★</div>
+        <p>Aldığım ürünlerden çok memnun kaldım, uzun süredir kullanıyorum. Kaliteli, uygun fiyat, müşteri memnuniyeti 5 yıldızı hak ediyor.</p>
+      </div>
+      <div class="g-review">
+        <div class="g-review-top">
+          <div class="g-review-av">A</div>
+          <div class="g-review-who">
+            <div class="g-review-name">Asude Erden</div>
+            <div class="g-review-meta">13 yorum · 29 hafta önce</div>
+          </div>
+        </div>
+        <div class="g-review-stars">★★★★★</div>
+        <p>İnstagram üzerinden alışveriş yaptım, hızlı ve güvenilir. Tavsiye ederim.</p>
       </div>
     </div>
   </section>
