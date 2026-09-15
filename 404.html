@@ -51,8 +51,8 @@
   <main class="error-page">
     <div>
       <h1>404</h1>
-      <h2>Sayfa Bulunamadı</h2>
-      <p>Aradığınız sayfa taşınmış veya kaldırılmış olabilir. Aşağıdaki bağlantılardan devam edebilirsiniz.</p>
+      <h2 id="hataBaslik">Sayfa Bulunamadı</h2>
+      <p id="hataMetin">Aradığınız sayfa taşınmış veya kaldırılmış olabilir. Aşağıdaki bağlantılardan devam edebilirsiniz.</p>
       <a href="/" class="btn btn-primary">Ana Sayfaya Dön</a>
       <div class="error-links">
         <a href="/#products">Ürün Grupları</a>
@@ -105,5 +105,29 @@
 
   <script src="script.js"></script>
   <script src="/cookie-banner.js" defer></script>
+
+  <script>
+    // Kaldirilan urun gruplarina gelen ziyaretciye genel "bulunamadi"
+    // yerine ne oldugunu soyle. Sunucu yine 404 donuyor; bu yalnizca metin.
+    (function () {
+      var yol = location.pathname.toLowerCase();
+      var kaldirilan = [
+        {
+          desen: /^\/kirlent(\/|$)|kirlent-dekorasyon-fikirleri/,
+          baslik: 'Bu Ürün Grubu Kaldırıldı',
+          metin: 'Punch kırlent satışımız sona erdi. Diğer ev tekstili ürünlerimize aşağıdan ulaşabilirsiniz.'
+        }
+      ];
+      for (var i = 0; i < kaldirilan.length; i++) {
+        if (kaldirilan[i].desen.test(yol)) {
+          var b = document.getElementById('hataBaslik');
+          var m = document.getElementById('hataMetin');
+          if (b) b.textContent = kaldirilan[i].baslik;
+          if (m) m.textContent = kaldirilan[i].metin;
+          break;
+        }
+      }
+    })();
+  </script>
 </body>
 </html>
