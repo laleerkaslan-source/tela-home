@@ -53,6 +53,14 @@ yazma. Alt alan adları Cloudflare Redirect Rules ile 301 olarak yeni yollara y�
 
 ### Ödeme
 
+- İki ödeme yöntemi var, `odeme.html` üstündeki `.pay-select` ile seçiliyor:
+  **kredi/banka kartı** (iyzico) ve **kapıda nakit ödeme**.
+- Kapıda ödemenin arka ucu yok: form doğrulandıktan sonra sipariş + adres bilgisi
+  önceden doldurulmuş bir WhatsApp mesajına çevrilip `wa.me/905063977307` açılıyor.
+  Yöntem değiştiğinde `yontemiUygula()` alanları, başlığı ve butonu güncelliyor;
+  kapıda ödemede e-posta isteğe bağlı oluyor.
+- Kapıda ödeme `on-bilgilendirme.html` md.4 ve `mesafeli-satis-sozlesmesi.html` md.5.1'de
+  beyan edilmiş durumda — ödeme yöntemlerini değiştirirsen bu iki metni de güncelle.
 - Sağlayıcı **iyzico**. Kartın kendisi sitede işlenmiyor.
 - Akış: `odeme.html` → `https://telahome-pay.laleerkaslan.workers.dev/create-payment`
   (ayrı bir Cloudflare Worker) → iyzico → dönüş `odeme-sonuc.html`.
