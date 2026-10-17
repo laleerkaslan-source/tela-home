@@ -65,3 +65,51 @@ if (contactForm) contactForm.addEventListener('submit', (e) => {
     e.target.reset();
   }
 });
+
+// ===== Mağaza Haritası (çerez onayına bağlı) =====
+// Google Maps iframe'i çerez yazıp IP adresini Google'a ilettiği için onay
+// alınmadan yüklenmez. Pazarlama onayı varsa otomatik, yoksa kullanıcı
+// "Haritayı Yükle" düğmesine basınca yüklenir.
+const storeMap = document.getElementById('storeMap');
+if (storeMap) {
+  const haritaYukle = () => {
+    if (storeMap.querySelector('iframe')) return;
+
+    const lat = storeMap.dataset.lat;
+    const lon = storeMap.dataset.lon;
+
+    const iframe = document.createElement('iframe');
+    // Anahtarsiz gomme bicimi. NOT: Google harita kareleri akmaya devam ettigi
+    // icin iframe'in `load` olayi guvenilir tetiklenmiyor — yuklenme kontrolunu
+    // bu olaya bagli bir zaman asimiyla yapma, calisan haritayi siler.
+    iframe.src = `https://maps.google.com/maps?q=${lat},${lon}&z=16&output=embed`;
+    iframe.title = 'Tela Home mağazasının Google Haritalar üzerindeki konumu';
+    iframe.loading = 'lazy';
+    iframe.referrerPolicy = 'no-referrer-when-downgrade';
+    iframe.setAttribute('allowfullscreen', '');
+
+    const placeholder = document.getElementById('storeMapPlaceholder');
+    if (placeholder) placeholder.remove();
+    storeMap.appendChild(iframe);
+  };
+
+  const onayVar = () => {
+    const onay = typeof window.telaCookieGet === 'function' ? window.telaCookieGet() : null;
+    return !!(onay && onay.marketing);
+  };
+
+  const loadBtn = document.getElementById('storeMapLoad');
+  if (loadBtn) loadBtn.addEventListener('click', haritaYukle);
+
+  // Onay zaten verilmişse doğrudan yükle.
+  // DOMContentLoaded bekleniyor: script.js senkron, cookie-banner.js ise defer'li —
+  // bu satır çalıştığında window.telaCookieGet henüz tanımlı olmuyor.
+  document.addEventListener('DOMContentLoaded', () => {
+    if (onayVar()) haritaYukle();
+  });
+
+  // Kullanıcı banner'dan sonradan onay verirse yükle
+  document.addEventListener('telaConsentChange', (e) => {
+    if (e.detail && e.detail.marketing) haritaYukle();
+  });
+}

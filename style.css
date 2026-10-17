@@ -771,6 +771,67 @@ img {
   flex-wrap: wrap;
 }
 
+/* ===== Mağaza haritası (çerez onayına bağlı) ===== */
+.store-map {
+  grid-column: 1 / -1;
+  margin-top: 48px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: var(--bg);
+}
+
+.store-map-placeholder {
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 40px 24px;
+  text-align: center;
+  background:
+    repeating-linear-gradient(45deg, rgba(139, 111, 90, 0.04) 0 14px, transparent 14px 28px),
+    var(--bg);
+}
+
+.store-map-placeholder svg { color: var(--brown); }
+
+.store-map-placeholder h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+  margin: 0;
+}
+
+.store-map-placeholder p {
+  font-size: 0.86rem;
+  color: var(--gray);
+  line-height: 1.6;
+  max-width: 420px;
+  margin: 0;
+}
+
+.store-map-placeholder .map-privacy {
+  font-size: 0.76rem;
+  color: var(--gray);
+  max-width: 440px;
+}
+
+.store-map iframe {
+  display: block;
+  width: 100%;
+  height: 420px;
+  border: 0;
+}
+
+@media (max-width: 768px) {
+  .store-map { margin-top: 32px; }
+  .store-map iframe { height: 320px; }
+  .store-map-placeholder { min-height: 260px; padding: 32px 18px; }
+}
+
 /* ===== Instagram ===== */
 .instagram {
   background: var(--bg);

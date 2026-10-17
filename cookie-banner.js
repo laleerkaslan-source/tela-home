@@ -2,6 +2,15 @@
   if (window.telaCookieLoaded) return;
   window.telaCookieLoaded = true;
 
+  var STORAGE_KEY = 'tela_cookie_consent_v1';
+
+  // Onay durumunu okuyan ortak yardimci — harita gibi onaya bagli bilesenler kullanir.
+  // Her cagrida localStorage'dan taze okur, bayat durum riski yok.
+  function onayOku() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch (e) { return null; }
+  }
+  window.telaCookieGet = onayOku;
+
   // Kritik dönüşüm sayfalarında banner GÖSTERME (kullanıcı dikkatinin dağılmaması için)
   var EXCLUDE_PATHS = ['/odeme.html', '/sepet.html', '/cart-bridge.html', '/odeme-sonuc.html'];
   var currentPath = (window.location.pathname || '').toLowerCase();
@@ -11,9 +20,7 @@
     return;
   }
 
-  var STORAGE_KEY = 'tela_cookie_consent_v1';
-  var stored = null;
-  try { stored = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch (e) {}
+  var stored = onayOku();
 
   var css = '' +
     '#telaCookieBanner{position:fixed;left:0;right:0;bottom:0;z-index:9998;background:#3a2f24;color:#fff;padding:18px 20px;box-shadow:0 -8px 24px rgba(0,0,0,0.18);font-family:"Open Sans",sans-serif;font-size:0.9rem;line-height:1.5;transform:translateY(120%);transition:transform 0.35s ease;}' +
@@ -114,6 +121,7 @@
   window.telaCookieSave = function(pref) {
     var data = { ts: new Date().getTime(), analytics: !!pref.analytics, marketing: !!pref.marketing };
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) {}
+    stored = data;
     var b = document.getElementById('telaCookieBanner');
     if (b) b.classList.remove('show');
     var m = document.getElementById('telaCookieModal');
