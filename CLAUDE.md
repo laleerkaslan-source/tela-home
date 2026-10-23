@@ -57,8 +57,11 @@ yazma. Alt alan adları Cloudflare Redirect Rules ile 301 olarak yeni yollara y�
   **kredi/banka kartı** (iyzico) ve **kapıda nakit ödeme**.
 - Kapıda ödemenin arka ucu yok: form doğrulandıktan sonra sipariş + adres bilgisi
   önceden doldurulmuş bir WhatsApp mesajına çevrilip `wa.me/905063977307` açılıyor.
-  Yöntem değiştiğinde `yontemiUygula()` alanları, başlığı ve butonu güncelliyor;
-  kapıda ödemede e-posta isteğe bağlı oluyor.
+  Yöntem değiştiğinde `yontemiUygula()` alanları, başlığı ve butonu güncelliyor.
+- **E-posta her iki yöntemde de isteğe bağlı.** Kart ödemesinde boş bırakılırsa,
+  iyzico `buyerEmail`'i zorunlu tuttuğu için istek `siparis-<telefon>@telahome.store`
+  ile gönderiliyor — bu adres yalnızca kayıt alanı, posta gitmiyor. Girilen e-posta
+  varsa olduğu gibi iletiliyor; hatalı biçimde girilirse form yine engelliyor.
 - Kapıda ödeme `on-bilgilendirme.html` md.4 ve `mesafeli-satis-sozlesmesi.html` md.5.1'de
   beyan edilmiş durumda — ödeme yöntemlerini değiştirirsen bu iki metni de güncelle.
 - Sağlayıcı **iyzico**. Kartın kendisi sitede işlenmiyor.

@@ -179,8 +179,8 @@
                   </div>
                 </div>
                 <div class="form-group" id="emailGroup">
-                  <label class="form-label" for="buyerEmail">E-posta <span id="emailOptional" style="display:none;color:#7a7067;font-weight:400;">(isteğe bağlı)</span></label>
-                  <input type="email" id="buyerEmail" class="form-input" placeholder="ornek@email.com" required autocomplete="email">
+                  <label class="form-label" for="buyerEmail">E-posta <span style="color:#7a7067;font-weight:400;">(isteğe bağlı)</span></label>
+                  <input type="email" id="buyerEmail" class="form-input" placeholder="ornek@email.com" autocomplete="email">
                   <div class="field-error">Geçerli bir e-posta adresi girin</div>
                 </div>
                 <div class="form-group">
@@ -355,7 +355,6 @@
       document.getElementById('codNote').style.display = cod ? 'block' : 'none';
       document.getElementById('cardFootnote').style.display = cod ? 'none' : '';
       document.getElementById('codFootnote').style.display = cod ? '' : 'none';
-      document.getElementById('emailOptional').style.display = cod ? '' : 'none';
       butonuSifirla();
     }
 
@@ -410,8 +409,8 @@
         Object.keys(validations).forEach(id => {
           const el = document.getElementById(id);
           if (!el) return;
-          // Kapıda ödemede e-posta isteğe bağlı
-          if (id === 'buyerEmail' && kapidaOdeme && el.value.trim() === '') {
+          // E-posta isteğe bağlı: boş bırakılabilir, girildiyse geçerli olmalı
+          if (id === 'buyerEmail' && el.value.trim() === '') {
             el.classList.remove('valid', 'invalid');
             return;
           }
@@ -494,11 +493,18 @@
         payBtn.innerHTML = '<span class="spinner"></span> Ödeme formu yükleniyor...';
         payError.style.display = 'none';
 
+        // iyzico buyerEmail alanini zorunlu tutuyor, bos gonderilirse istek reddediliyor.
+        // Formda e-posta istege bagli oldugu icin bos birakilirsa siparisi telefondan
+        // turetilmis bir adresle gonderiyoruz: iyzico panelinde siparisi musteriye
+        // baglamayi saglar. Bu adrese posta gitmez, yalnizca kayit alanidir.
+        const telefon = document.getElementById('buyerPhone').value.replace(/[\s\-\(\)]/g, '');
+        const girilenEposta = document.getElementById('buyerEmail').value.trim();
+
         const buyer = {
           name: document.getElementById('buyerName').value.trim(),
           surname: document.getElementById('buyerSurname').value.trim(),
-          email: document.getElementById('buyerEmail').value.trim(),
-          phone: document.getElementById('buyerPhone').value.replace(/[\s\-\(\)]/g, ''),
+          email: girilenEposta || ('siparis-' + telefon + '@telahome.store'),
+          phone: telefon,
           address: document.getElementById('buyerAddress').value.trim(),
           city: document.getElementById('buyerCity').value.trim(),
           zipCode: document.getElementById('buyerZip').value.trim() || '06000'
