@@ -40,6 +40,7 @@
     .form-input.invalid:focus{box-shadow:0 0 0 3px rgba(229,57,53,0.1)}
     .field-error{font-size:0.78rem;color:#e53935;margin-top:3px;display:none;padding-left:2px}
     .form-input.invalid + .field-error{display:block}
+    .form-hint{font-size:0.78rem;color:#7a7067;margin-top:3px;padding-left:2px}
     .form-label{font-size:0.8rem;font-weight:600;color:var(--brown-dark);margin-bottom:4px;display:block}
 
     /* Secure badge */
@@ -180,8 +181,9 @@
                 </div>
                 <div class="form-group" id="emailGroup">
                   <label class="form-label" for="buyerEmail">E-posta <span style="color:#7a7067;font-weight:400;">(isteğe bağlı)</span></label>
-                  <input type="email" id="buyerEmail" class="form-input" placeholder="ornek@email.com" autocomplete="email">
+                  <input type="email" id="buyerEmail" class="form-input" placeholder="ornek@email.com" autocomplete="email" aria-describedby="emailHint">
                   <div class="field-error">Geçerli bir e-posta adresi girin</div>
+                  <div class="form-hint" id="emailHint">Makbuzunuzu e-posta ile almak isterseniz doldurun.</div>
                 </div>
                 <div class="form-group">
                   <label class="form-label" for="buyerPhone">Telefon</label>
