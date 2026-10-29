@@ -478,6 +478,17 @@
               items: items.map(i => ({ item_id: i.id, item_name: i.name, price: i.price, quantity: i.qty }))
             });
           }
+          // Meta'ya donusum sinyali. Purchase DEGIL: WhatsApp'a gitmek siparisin
+          // kesinlestigi anlamina gelmiyor, teyit telefonla aliniyor. Purchase
+          // basilirsa reklam raporundaki ciro gercekte olmayan satisi gosterir.
+          // Lead, Meta'nin satin alma egilimli kitleyi ogrenmesi icin yeterli.
+          if (typeof fbq === 'function') {
+            fbq('track', 'Lead', {
+              content_name: 'Kapida Nakit Odeme Siparisi',
+              value: total,
+              currency: 'TRY'
+            });
+          }
 
           window.open('https://wa.me/905063977307?text=' + encodeURIComponent(decodeURIComponent(mesaj)), '_blank', 'noopener');
           payBtn.innerHTML = '\u2713 Siparişiniz iletildi';

@@ -64,6 +64,11 @@ yazma. Alt alan adları Cloudflare Redirect Rules ile 301 olarak yeni yollara y�
   varsa olduğu gibi iletiliyor; hatalı biçimde girilirse form yine engelliyor.
 - Kapıda ödeme `on-bilgilendirme.html` md.4 ve `mesafeli-satis-sozlesmesi.html` md.5.1'de
   beyan edilmiş durumda — ödeme yöntemlerini değiştirirsen bu iki metni de güncelle.
+- **Kapıda ödemede Meta'ya `Lead` basılıyor, `Purchase` değil.** WhatsApp'a yönlenmek
+  siparişin kesinleştiği anlamına gelmiyor (teyit telefonla alınıyor), bu yüzden
+  Purchase basmak reklam raporuna olmayan ciro yazar. GA4 tarafında aynı an için
+  `kapida_odeme_siparis` özel etkinliği var. Gerçek kapıda ödeme cirosu bu iki
+  sayıdan değil, teyit edilen siparişlerden sayılmalı.
 - Sağlayıcı **iyzico**. Kartın kendisi sitede işlenmiyor.
 - Akış: `odeme.html` → `https://telahome-pay.laleerkaslan.workers.dev/create-payment`
   (ayrı bir Cloudflare Worker) → iyzico → dönüş `odeme-sonuc.html`.
