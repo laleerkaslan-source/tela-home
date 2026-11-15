@@ -224,6 +224,13 @@
                 <p id="payError" style="color:#e53935;font-size:0.85rem;display:none;margin-top:4px;text-align:center;background:#fff5f5;padding:10px;border-radius:8px;"></p>
               </form>
               <div id="iyzicoForm" style="margin-top:16px;"></div>
+              <!-- iyzico kart formunun ciziledigi yer. Bu div ZORUNLU: iyzico'nun
+                   bundle.js'i sayfada #iyzipay-checkout-form arar, bulamazsa body'nin
+                   sonuna sinifsiz bir div uretiyor ve form 0 piksel yuksekligiyle
+                   gorunmez kaliyor. class="responsive" formu sayfa icine gomer;
+                   "popup" olursa modal acilir. iyzicoForm'un ICINE koymayin -
+                   checkoutFormContent enjekte edilirken innerHTML ile siliniyor. -->
+              <div id="iyzipay-checkout-form" class="responsive"></div>
               <div class="secure-badge" id="secureBadge">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
                 256-bit SSL ile korunan güvenli ödeme - iyzico altyapısı
