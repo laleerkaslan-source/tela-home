@@ -106,11 +106,22 @@ yazma. Alt alan adları Cloudflare Redirect Rules ile 301 olarak yeni yollara y�
 
 ## Dikkat edilecekler
 
-- **Taksit yok.** Tüm siparişler tek çekim; pazarlama metinlerindeki taksit ifadeleri
-  bilinçli olarak temizlendi, yenisini ekleme. İki yer bilerek duruyor:
-  `on-bilgilendirme.html` bunu açıkça beyan ediyor, `odeme-sonuc.html` ise iyzico
-  1'den büyük taksit döndürürse gösteren savunma amaçlı bir koşul içeriyor — ikisi de
-  artık değil, silme.
+- **Taksit VAR.** (Eskiden bu satır "taksit yok" diyordu — yanlıştı, 17 Kasım 2026'da
+  düzeltildi.) iyzico panelinde *Ayarlar → Taksit ve Komisyon Oranları* altında 2/3/6/9/12
+  taksit yedi kart ailesi için açık; canlı ödeme formunda 2.450 TL'lik sepette 2/3/6
+  taksit göründüğü doğrulandı. **Vade farkını müşteri ödüyor** — panelde "Hesaba
+  Aktarılacak Tutar" her taksit satırında aynı (%95,46), yani taksit satıcıya maliyet
+  getirmiyor. Beyan iki yerde: `on-bilgilendirme.html` md.4 ve
+  `mesafeli-satis-sozlesmesi.html` md.5.1 — panelden taksit ayarını değiştirirsen bu iki
+  metni de güncelle, aksi halde mevzuata aykırı çelişki oluşur.
+  `odeme-sonuc.html` md.116'daki taksit gösterimi artık savunma amaçlı değil, fiilen
+  kullanılıyor — silme.
+  *Neden yanlış bilindi:* kart formu 4 Nisan – 17 Kasım 2026 arası hiç açılmıyordu
+  (eksik `#iyzipay-checkout-form` div'i), bu yüzden taksit fiilen kimseye görünmedi ve
+  metinler "taksit yok" diye yazıldı. Form düzelince çelişki ortaya çıktı.
+- **Ürün/pazarlama metinlerinde taksit vurgusu henüz YOK.** Taksit teknik olarak açık
+  ama ürün kartlarına "6 taksit" rozeti vb. eklemek ayrı bir pazarlama kararı — kendi
+  başına ekleme, önce sor.
 - **Yasal sayfalar mevzuata göre düzenlendi** (Mesafeli Satış, Ön Bilgilendirme, Çerez,
   Gizlilik). Bu sayfaların metnini keyfi olarak sadeleştirme.
 - **Görseller LCP için optimize edildi** (~1,2 MB tasarruf sağlandı). Yeni görsel
