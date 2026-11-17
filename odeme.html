@@ -537,40 +537,91 @@
           qty: item.qty
         }));
 
-        try {
-          const res = await fetch(WORKER_URL + '/create-payment', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              buyer: buyer,
-              items: basketItems,
-              callbackUrl: WORKER_URL + '/callback?returnUrl=' + encodeURIComponent(window.location.origin + '/odeme-sonuc.html')
-            })
-          });
-          const data = await res.json();
-          if (data.status === 'success' && data.checkoutFormContent) {
-            // Update progress steps
-            document.getElementById('stepInfo').classList.remove('active');
-            document.getElementById('stepInfo').classList.add('done');
-            document.getElementById('stepPay').classList.add('active');
+        // iyzico'nun api.iyzipay.com ucu arada baglanti zaman asimina dusuyor:
+        // Cloudflare 522 donuyor, worker JSON yerine duz metin aliyor ve HTTP 500
+        // ile ham teknik mesaj gonderiyor ("Unexpected token 'e'... not valid JSON").
+        // Olcum: 25 istekte 1 basarisiz (~%4), ve hata GECICI - hemen sonraki
+        // deneme basariyla donuyor. Bu yuzden 5xx / aglayamadi / bozuk JSON
+        // durumlarinda istegi sessizce tekrar deniyoruz. Musteriye asla ham
+        // teknik metin gosterilmiyor; kalici hatada anlasilir mesaj + WhatsApp.
+        const DENEME_SAYISI = 3;
+        const BEKLEME_MS = 1200;
+        let basarili = false;
+        let kaliciHataMesaji = null;
 
-            document.getElementById('buyerForm').style.display = 'none';
-            document.querySelector('.secure-badge').style.display = 'none';
-            payBtn.style.display = 'none';
-            const iyzicoDiv = document.getElementById('iyzicoForm');
-            iyzicoDiv.innerHTML = '<p style="text-align:center;margin-bottom:12px;color:var(--brown);font-weight:600;">Kart bilgilerinizi girin</p>' + data.checkoutFormContent;
-            iyzicoDiv.querySelectorAll('script').forEach(function(oldScript) {
-              var newScript = document.createElement('script');
-              if (oldScript.src) { newScript.src = oldScript.src; } else { newScript.textContent = oldScript.textContent; }
-              oldScript.parentNode.replaceChild(newScript, oldScript);
-            });
-          } else {
-            payError.textContent = data.message || data.error || 'Ödeme formu oluşturulamadı. Lütfen tekrar deneyin.';
-            payError.style.display = 'block';
-            butonuSifirla();
+        const formuGoster = function (icerik) {
+          document.getElementById('stepInfo').classList.remove('active');
+          document.getElementById('stepInfo').classList.add('done');
+          document.getElementById('stepPay').classList.add('active');
+
+          document.getElementById('buyerForm').style.display = 'none';
+          document.querySelector('.secure-badge').style.display = 'none';
+          payBtn.style.display = 'none';
+          const iyzicoDiv = document.getElementById('iyzicoForm');
+          iyzicoDiv.innerHTML = '<p style="text-align:center;margin-bottom:12px;color:var(--brown);font-weight:600;">Kart bilgilerinizi girin</p>' + icerik;
+          iyzicoDiv.querySelectorAll('script').forEach(function(oldScript) {
+            var newScript = document.createElement('script');
+            if (oldScript.src) { newScript.src = oldScript.src; } else { newScript.textContent = oldScript.textContent; }
+            oldScript.parentNode.replaceChild(newScript, oldScript);
+          });
+        };
+
+        for (let deneme = 1; deneme <= DENEME_SAYISI; deneme++) {
+          if (deneme > 1) {
+            payBtn.innerHTML = '<span class="spinner"></span> Tekrar deneniyor (' + deneme + '/' + DENEME_SAYISI + ')...';
+            await new Promise(function (r) { setTimeout(r, BEKLEME_MS); });
           }
-        } catch (err) {
-          payError.textContent = 'Bağlantı hatası. Lütfen internet bağlantınızı kontrol edip tekrar deneyin.';
+
+          let res, govde;
+          try {
+            res = await fetch(WORKER_URL + '/create-payment', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                buyer: buyer,
+                items: basketItems,
+                callbackUrl: WORKER_URL + '/callback?returnUrl=' + encodeURIComponent(window.location.origin + '/odeme-sonuc.html')
+              })
+            });
+            govde = await res.text();
+          } catch (err) {
+            console.warn('create-payment aga ulasamadi, deneme ' + deneme, err);
+            continue; // ag hatasi: tekrar denenebilir
+          }
+
+          let data = null;
+          try { data = JSON.parse(govde); } catch (e) { data = null; }
+
+          if (data && data.status === 'success' && data.checkoutFormContent) {
+            formuGoster(data.checkoutFormContent);
+            basarili = true;
+            break;
+          }
+
+          // 5xx veya bozuk JSON: gecici, tekrar dene
+          if (!res.ok || !data) {
+            console.warn('create-payment gecici hata (HTTP ' + res.status + '), deneme ' + deneme,
+                         data && data.error ? data.error : govde.slice(0, 120));
+            continue;
+          }
+
+          // HTTP 200 ama status != success: kalici hata, tekrar denemenin faydasi yok.
+          // data.message iyzico'nun musteriye gosterilebilir metni; data.error ise
+          // worker'in ic teknik mesaji - onu ekrana basmiyoruz, konsola yaziyoruz.
+          if (data.error) console.warn('create-payment kalici hata:', data.error);
+          kaliciHataMesaji = data.message || null;
+          break;
+        }
+
+        if (!basarili) {
+          if (kaliciHataMesaji) {
+            // Dis kaynakli metin: innerHTML DEGIL, textContent ile basiliyor.
+            payError.textContent = kaliciHataMesaji;
+          } else {
+            payError.innerHTML = 'Ödeme altyapısına şu an ulaşılamıyor. Lütfen birkaç saniye sonra ' +
+              'tekrar deneyin. Sorun sürerse siparişinizi WhatsApp\'tan alabiliriz: ' +
+              '<a href="https://wa.me/905063977307" target="_blank" rel="noopener" style="color:#2e7d32;font-weight:700;">0506 397 73 07</a>';
+          }
           payError.style.display = 'block';
           butonuSifirla();
         }

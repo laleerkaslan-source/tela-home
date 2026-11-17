@@ -69,6 +69,20 @@ yazma. Alt alan adları Cloudflare Redirect Rules ile 301 olarak yeni yollara y�
   Purchase basmak reklam raporuna olmayan ciro yazar. GA4 tarafında aynı an için
   `kapida_odeme_siparis` özel etkinliği var. Gerçek kapıda ödeme cirosu bu iki
   sayıdan değil, teyit edilen siparişlerden sayılmalı.
+- **`#iyzipay-checkout-form` div'i `odeme.html`'den silinmemeli.** iyzico'nun
+  `bundle.js`'i kart formunu çizmek için sayfada bu id'yi arar; bulamazsa `<body>`
+  sonuna sınıfsız bir div üretir ve form 0 piksel yükseklikte görünmez kalır —
+  müşteri boş ekran görür, hata mesajı da çıkmaz. `class="responsive"` formu sayfa
+  içine gömer. `#iyzicoForm`'un *içine* konulamaz, çünkü oraya `innerHTML` ile
+  yazılıyor. (Bu hata 4 Nisan – 17 Kasım 2026 arası canlıda duruyordu.)
+- **`/create-payment` isteği 3 kez deneniyor.** iyzico'nun `api.iyzipay.com` ucu
+  arada zaman aşımına düşüyor (Cloudflare 522, ölçüm: ~25 istekte 1). Hata geçici,
+  sonraki deneme dönüyor. 5xx / ağ hatası / bozuk JSON tekrar denenir; HTTP 200 +
+  `status != success` kalıcı sayılır ve tekrar denenmez.
+- **Müşteriye ham teknik hata gösterilmiyor.** Worker'ın `data.error` alanı yalnızca
+  konsola yazılır; ekrana iyzico'nun `data.message`'ı veya anlaşılır bir metin +
+  WhatsApp numarası basılır. Eskiden `data.error` doğrudan gösteriliyordu ve müşteri
+  "Unexpected token 'e'... is not valid JSON" görüyordu.
 - Sağlayıcı **iyzico**. Kartın kendisi sitede işlenmiyor.
 - Akış: `odeme.html` → `https://telahome-pay.laleerkaslan.workers.dev/create-payment`
   (ayrı bir Cloudflare Worker) → iyzico → dönüş `odeme-sonuc.html`.
