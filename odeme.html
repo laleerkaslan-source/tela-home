@@ -6,7 +6,7 @@
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-2JCWKJ63ZS');</script>
   <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","w4xtl7xrir");</script>
   <!-- Meta Pixel Code -->
-  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1263032575973750');fbq('track','PageView');fbq('track','InitiateCheckout');</script>
+  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1263032575973750');fbq('track','PageView');</script>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1263032575973750&ev=PageView&noscript=1"/></noscript>
   <!-- End Meta Pixel Code -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -405,6 +405,22 @@
           currency: 'TRY',
           value: total,
           items: items.map(i => ({ item_id: i.id, item_name: i.name, price: i.price, quantity: i.qty }))
+        });
+      }
+
+      // Meta InitiateCheckout. Sayfa yuklenirken <head>'de degil, SEPET DOLU
+      // oldugu dogrulandiktan sonra burada basiliyor: bos sepetle odeme
+      // sayfasini acan ziyaretci "odemeye basladi" sayilmamali. Sepet tutari
+      // da gonderiliyor - tutarsiz etkinlik Meta'ya sepet degerini ogretmiyor,
+      // satin alma optimizasyonu ve deger bazli kitleler zayif kaliyor.
+      if (typeof fbq === 'function') {
+        fbq('track', 'InitiateCheckout', {
+          value: total,
+          currency: 'TRY',
+          num_items: items.reduce(function (t, i) { return t + i.qty; }, 0),
+          content_type: 'product',
+          content_ids: items.map(function (i) { return i.id; }),
+          contents: items.map(function (i) { return { id: i.id, quantity: i.qty, item_price: i.price }; })
         });
       }
 

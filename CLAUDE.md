@@ -64,6 +64,11 @@ yazma. Alt alan adları Cloudflare Redirect Rules ile 301 olarak yeni yollara y�
   varsa olduğu gibi iletiliyor; hatalı biçimde girilirse form yine engelliyor.
 - Kapıda ödeme `on-bilgilendirme.html` md.4 ve `mesafeli-satis-sozlesmesi.html` md.5.1'de
   beyan edilmiş durumda — ödeme yöntemlerini değiştirirsen bu iki metni de güncelle.
+- **Meta `InitiateCheckout` `<head>`'de değil, sepet dolu doğrulandıktan sonra
+  basılıyor** (GA4 `begin_checkout`'un yanında), sepet tutarı ve ürünlerle birlikte.
+  Eskiden sayfa yüklenirken koşulsuz basılıyordu: boş sepetle ödeme sayfasını açan
+  ziyaretçi de "ödemeye başladı" sayılıyor ve Meta sepet değerini hiç öğrenmiyordu.
+  Yeni etkinlik eklerken aynı kuralı izle — koşulsuz `<head>` etkinliği ekleme.
 - **Kapıda ödemede Meta'ya `Lead` basılıyor, `Purchase` değil.** WhatsApp'a yönlenmek
   siparişin kesinleştiği anlamına gelmiyor (teyit telefonla alınıyor), bu yüzden
   Purchase basmak reklam raporuna olmayan ciro yazar. GA4 tarafında aynı an için
