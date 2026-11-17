@@ -2158,3 +2158,72 @@ img {
     font-size: 1.4rem;
   }
 }
+
+/* ================= Taksit kutusu (ürün sayfaları) =================
+   Markup'ı script.js çiziyor; sayfaya sadece
+   <div class="taksit-box" data-taksit-fiyat="2450"></div> konuyor. */
+.taksit-box {
+  border: 1.5px solid #ece2d5;
+  border-radius: var(--radius, 14px);
+  margin-bottom: 22px;
+  overflow: hidden;
+  background: #fff;
+}
+.taksit-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 18px;
+  background: var(--beige, #faf6f1);
+  border: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.taksit-toggle:hover { background: #f3ebe0; }
+.taksit-toggle:focus-visible { outline: 2px solid var(--brown, #8b7355); outline-offset: -2px; }
+.taksit-ikon { font-size: 1.15rem; line-height: 1; flex-shrink: 0; }
+.taksit-ozet {
+  flex: 1;
+  font-size: 0.93rem;
+  font-weight: 600;
+  color: var(--brown-dark, #5a4a3a);
+  line-height: 1.4;
+}
+.taksit-ozet strong { font-weight: 800; }
+.taksit-ok {
+  font-size: 0.72rem;
+  color: var(--gray, #8a7d6d);
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.taksit-toggle[aria-expanded="true"] .taksit-ok { transform: rotate(180deg); }
+.taksit-liste { padding: 2px 18px 14px; }
+.taksit-satir {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f2ebe1;
+  font-size: 0.9rem;
+}
+.taksit-satir:last-of-type { border-bottom: 0; }
+.taksit-adet { color: var(--brown-dark, #5a4a3a); font-weight: 700; flex-shrink: 0; }
+.taksit-sag { text-align: right; }
+.taksit-aylik { font-weight: 700; color: var(--brown-dark, #5a4a3a); }
+.taksit-toplam { display: block; color: var(--gray, #8a7d6d); font-size: 0.78rem; margin-top: 2px; }
+.taksit-not {
+  font-size: 0.75rem;
+  color: var(--gray, #8a7d6d);
+  line-height: 1.55;
+  margin: 12px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid #f2ebe1;
+}
+@media (max-width: 480px) {
+  .taksit-ozet { font-size: 0.88rem; }
+  .taksit-satir { font-size: 0.86rem; }
+}

@@ -119,9 +119,18 @@ yazma. Alt alan adları Cloudflare Redirect Rules ile 301 olarak yeni yollara y�
   *Neden yanlış bilindi:* kart formu 4 Nisan – 17 Kasım 2026 arası hiç açılmıyordu
   (eksik `#iyzipay-checkout-form` div'i), bu yüzden taksit fiilen kimseye görünmedi ve
   metinler "taksit yok" diye yazıldı. Form düzelince çelişki ortaya çıktı.
-- **Ürün/pazarlama metinlerinde taksit vurgusu henüz YOK.** Taksit teknik olarak açık
-  ama ürün kartlarına "6 taksit" rozeti vb. eklemek ayrı bir pazarlama kararı — kendi
-  başına ekleme, önce sor.
+- **Ürün sayfasındaki taksit kutusu** `style.css` + `script.js` içinde; sayfaya tek
+  satır gerekiyor: `<div class="taksit-box" data-taksit-fiyat="2450"></div>`.
+  Oranlar `script.js`'teki `TAKSIT_ORANLARI` sabitinde, iyzico panelinden alınma —
+  panelde oran değişirse orayı güncelle. Tutarlar **tam lira ve "~" ile** gösteriliyor;
+  iyzico'nun hesabı kuruşta tutmadığı (kendi ekranında bile 1 kuruş tutarsızlık var)
+  için kuruşlu tutar yazma, yanıltıcı olur. Bağlayıcı tutar ödeme ekranındaki.
+  Şu an yalnızca `salon-takimi/diva-5-parca.html`'de deneme olarak duruyor.
+  Açılışta GA4'e `taksit_goruntule` etkinliği gidiyor — yayıp yaymamaya bu veriyle
+  karar verilecek.
+- **Yeni bir fiyat bandına taksit kutusu eklerken önce ödeme formunda o taksitlerin
+  gerçekten çıktığını doğrula.** 9 ve 12 taksit panelde tanımlı ama 2.450 TL'lik
+  sepette iyzico sunmadı. Olmayan taksiti vaat etmek yanıltıcı ticari uygulama olur.
 - **Yasal sayfalar mevzuata göre düzenlendi** (Mesafeli Satış, Ön Bilgilendirme, Çerez,
   Gizlilik). Bu sayfaların metnini keyfi olarak sadeleştirme.
 - **Görseller LCP için optimize edildi** (~1,2 MB tasarruf sağlandı). Yeni görsel

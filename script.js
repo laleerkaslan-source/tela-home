@@ -113,3 +113,96 @@ if (storeMap) {
     if (e.detail && e.detail.marketing) haritaYukle();
   });
 }
+
+/* ================= Taksit kutusu =================
+   Urun sayfasinda fiyatin altinda "6 taksite kadar ~461 TL/ay" ozetini ve
+   acilir taksit tablosunu cizer. Sayfaya tek satir yetiyor:
+       <div class="taksit-box" data-taksit-fiyat="2450"></div>
+
+   ORANLAR iyzico panelinden geliyor (Ayarlar > Taksit ve Komisyon Oranlari),
+   17 Kasim 2026 itibariyla. Panelde oran degisirse burasi da degismeli.
+
+   TUTARLAR YAKLASIK, bu yuzden hepsi "~" ile ve TAM LIRA gosteriliyor.
+   Panel oranlari yuvarlanmis (ornegin %12,87), iyzico'nun gercek hesabi biraz
+   farkli; ustelik iyzico'nun kendi ekraninda bile tutarsizlik var: 2.450 TL'de
+   6 taksit "460,87 TL x 6" diyor ama TOPLAM olarak 2.765,21 yaziyor (carpim
+   2.765,22 eder). Yani kurus hassasiyeti kovalanacak bir sey degil - burada
+   kuruslu tutar GOSTERME, yaniltici olur. Baglayici tutar odeme ekranindaki.
+
+   9 ve 12 taksit panelde TANIMLI ama 2.450 TL'lik sepette iyzico bunlari
+   sunmadi (olculdu). Listeye eklemeden once o fiyat bandinda odeme formunda
+   gercekten cikiyor mu diye bak - olmayan taksiti vaat etmek yaniltici olur.
+*/
+(function () {
+  const TAKSIT_ORANLARI = { 2: 0.0369, 3: 0.0576, 6: 0.1287 };
+
+  const tam = new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 0 });
+  let sayac = 0;
+
+  function secenekler(fiyat) {
+    return Object.keys(TAKSIT_ORANLARI).map(Number).sort(function (a, b) { return a - b; })
+      .map(function (adet) {
+        const toplam = fiyat * (1 + TAKSIT_ORANLARI[adet]);
+        return { adet: adet, aylik: toplam / adet, toplam: toplam };
+      });
+  }
+
+  function ciz(kutu) {
+    const fiyat = parseFloat(kutu.getAttribute('data-taksit-fiyat'));
+    if (!isFinite(fiyat) || fiyat <= 0) return;
+
+    const liste = secenekler(fiyat);
+    if (!liste.length) return;
+    const enUzun = liste[liste.length - 1];
+    const id = 'taksitListe' + (++sayac);
+
+    const satirlar = liste.map(function (s) {
+      return '<div class="taksit-satir">' +
+               '<span class="taksit-adet">' + s.adet + ' taksit</span>' +
+               '<span class="taksit-sag">' +
+                 '<span class="taksit-aylik">~' + tam.format(s.aylik) + ' TL</span> × ' + s.adet +
+                 '<span class="taksit-toplam">Toplam ~' + tam.format(s.toplam) + ' TL</span>' +
+               '</span>' +
+             '</div>';
+    }).join('');
+
+    kutu.innerHTML =
+      '<button type="button" class="taksit-toggle" aria-expanded="false" aria-controls="' + id + '">' +
+        '<span class="taksit-ikon" aria-hidden="true">💳</span>' +
+        '<span class="taksit-ozet">' + enUzun.adet + ' taksite kadar — aylık <strong>~' +
+          tam.format(enUzun.aylik) + ' TL</strong></span>' +
+        '<span class="taksit-ok" aria-hidden="true">▼</span>' +
+      '</button>' +
+      '<div class="taksit-liste" id="' + id + '" hidden>' + satirlar +
+        '<p class="taksit-not">Tutarlar yaklaşıktır ve bankanın uyguladığı vade farkını içerir. ' +
+        'Kullanılabilir taksit sayısı kartınıza göre değişir; geçerli taksit tutarı ve ödenecek ' +
+        'toplam, sipariş onaylanmadan önce ödeme adımında gösterilir. Tela Home ayrıca vade farkı almaz.</p>' +
+      '</div>';
+
+    const btn = kutu.querySelector('.taksit-toggle');
+    const panel = kutu.querySelector('.taksit-liste');
+    let olculdu = false;
+
+    btn.addEventListener('click', function () {
+      const acik = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', acik ? 'false' : 'true');
+      panel.hidden = acik;
+
+      // Taksitin ise yarayip yaramadigini olcebilmek icin: sayfa basina bir kez.
+      if (!acik && !olculdu) {
+        olculdu = true;
+        if (typeof gtag === 'function') {
+          gtag('event', 'taksit_goruntule', { currency: 'TRY', value: fiyat });
+        }
+      }
+    });
+  }
+
+  function kur() { document.querySelectorAll('.taksit-box[data-taksit-fiyat]').forEach(ciz); }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', kur);
+  } else {
+    kur();
+  }
+})();
