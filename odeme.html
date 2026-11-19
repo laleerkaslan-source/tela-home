@@ -285,6 +285,7 @@
   </footer>
 
   <script src="cart.js"></script>
+  <script src="/stok.js"></script>
   <script>
     document.getElementById('hamburger').addEventListener('click', function() {
       this.classList.toggle('active');
@@ -435,7 +436,28 @@
 
     // ── CART & ORDER SUMMARY ──
     const WORKER_URL = 'https://telahome-pay.laleerkaslan.workers.dev';
-    const items = Cart.getItems();
+    // Stokta olmayan urunu sepetten cikar. Urun sayfasindaki butonlari
+    // kaldirmak yetmiyor: urun daha once sepete eklenmisse localStorage'da
+    // duruyor ve musteri buraya gelip parasini odeyebiliyor. Liste stok.js'te.
+    let items = Cart.getItems();
+    const stoktaOlmayanlar = items.filter(function (i) {
+      return typeof window.stoktaYokMu === 'function' && window.stoktaYokMu(i.id);
+    });
+    if (stoktaOlmayanlar.length) {
+      items = items.filter(function (i) { return stoktaOlmayanlar.indexOf(i) === -1; });
+      Cart.save(items);
+      const uyari = document.createElement('div');
+      uyari.style.cssText = 'margin-bottom:16px;padding:14px 16px;background:#fff4e5;' +
+        'border:1.5px solid #ffb74d;border-radius:10px;font-size:0.88rem;' +
+        'color:#7a4b00;line-height:1.6;';
+      // Urun adi disaridan (sepetten) geliyor: textContent ile basiliyor.
+      uyari.textContent = stoktaOlmayanlar.map(function (i) { return i.name; }).join(', ') +
+        ' stoğumuzda kalmadığı için sepetinizden çıkarıldı. Ürün geldiğinde haber ' +
+        'vermemizi isterseniz WhatsApp\'tan yazabilirsiniz: 0506 397 73 07';
+      const hedef = document.getElementById('checkoutOrder');
+      if (hedef && hedef.parentNode) hedef.parentNode.insertBefore(uyari, hedef);
+    }
+
     const orderDiv = document.getElementById('checkoutOrder');
     const waBtn = document.getElementById('waOrderBtn');
 

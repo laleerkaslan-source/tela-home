@@ -131,6 +131,17 @@ yazma. Alt alan adları Cloudflare Redirect Rules ile 301 olarak yeni yollara y�
 - **Yeni bir fiyat bandına taksit kutusu eklerken önce ödeme formunda o taksitlerin
   gerçekten çıktığını doğrula.** 9 ve 12 taksit panelde tanımlı ama 2.450 TL'lik
   sepette iyzico sunmadı. Olmayan taksiti vaat etmek yanıltıcı ticari uygulama olur.
+- **Stokta olmayan ürünler `stok.js`'teki listede.** Ürün sayfasındaki satın alma
+  butonlarını kaldırmak YETMİYOR: ürün daha önce sepete eklendiyse `localStorage`'da
+  duruyor ve müşteri doğrudan `/odeme.html`'e gidip stokta olmayan ürünün parasını
+  ödeyebiliyor — sonra iade, komisyon kaybı ve özür gerekiyor. `odeme.html` bu listeye
+  bakıp ürünü sepetten çıkarıyor ve müşteriye açıklama + WhatsApp numarası gösteriyor.
+  Şu an listede: `ayakkabi-hurcu` (19 Kasım 2026).
+  **Stok gelince dört yeri birlikte güncelle** — yarısı yapılırsa sayfa yalan söyler:
+  (1) `stok.js`'teki id, (2) ürün sayfasındaki "Gelince Haber Ver" bloğu eski
+  butonlara, (3) JSON-LD `availability` → `InStock`, (4) "Stokta yok" rozeti.
+  Dördünün de yanında geri alma talimatı yorum olarak duruyor.
+
 - **Yasal sayfalar mevzuata göre düzenlendi** (Mesafeli Satış, Ön Bilgilendirme, Çerez,
   Gizlilik). Bu sayfaların metnini keyfi olarak sadeleştirme.
 - **Görseller LCP için optimize edildi** (~1,2 MB tasarruf sağlandı). Yeni görsel
