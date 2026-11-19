@@ -372,6 +372,67 @@
     });
     yontemiUygula();
 
+    /* ══════════ GECICI TANI KODU — 19 Kasim 2026 ══════════
+       Musteri "Odeme islemi esnasinda genel bir hata olustu" aliyor ama iyzico
+       hangi kodu dondurdugunu ekranda GOSTERMIYOR. Kod yalnizca ag yanitinda
+       duruyor, telefondan bakilamiyor. Bu blok iyzipay.com'dan donen basarisiz
+       yanitlari yakalayip errorCode'u ekrana basiyor ki kod okunabilsin.
+       Yaniti DEGISTIRMIYOR, yalnizca okuyor. SORUN COZULUNCE BU BLOGU SIL. */
+    (function taniKodu() {
+      function kodGoster(govde) {
+        try {
+          const d = JSON.parse(govde);
+          if (!d || d.status !== 'failure' || !d.errorCode) return;
+          let kutu = document.getElementById('iyzicoTaniKodu');
+          if (!kutu) {
+            kutu = document.createElement('div');
+            kutu.id = 'iyzicoTaniKodu';
+            kutu.style.cssText = 'margin:14px 0;padding:14px 16px;background:#fff4e5;' +
+              'border:1.5px solid #ffb74d;border-radius:10px;font-size:0.88rem;' +
+              'color:#7a4b00;line-height:1.6;font-weight:600;';
+            const hedef = document.getElementById('iyzipay-checkout-form');
+            if (hedef && hedef.parentNode) hedef.parentNode.insertBefore(kutu, hedef);
+            else document.body.appendChild(kutu);
+          }
+          // Dis kaynakli metin: innerHTML DEGIL, textContent.
+          kutu.textContent = 'Teknik kod: ' + d.errorCode +
+            (d.errorGroup ? ' / ' + d.errorGroup : '') +
+            (d.errorMessage ? ' — ' + d.errorMessage : '');
+          kutu.scrollIntoView({ block: 'center' });
+          console.warn('iyzico hatasi:', d);
+        } catch (e) { /* JSON degil, ilgilenmiyoruz */ }
+      }
+
+      const iyzicoMu = function (url) {
+        return typeof url === 'string' && url.indexOf('iyzipay.com') > -1;
+      };
+
+      const asilAc = XMLHttpRequest.prototype.open;
+      XMLHttpRequest.prototype.open = function (yontem, url) {
+        try {
+          const istek = this;
+          istek.addEventListener('load', function () {
+            if (iyzicoMu(url)) kodGoster(istek.responseText);
+          });
+        } catch (e) {}
+        return asilAc.apply(this, arguments);
+      };
+
+      const asilFetch = window.fetch;
+      window.fetch = function (girdi) {
+        const url = typeof girdi === 'string' ? girdi : (girdi && girdi.url) || '';
+        const sonuc = asilFetch.apply(this, arguments);
+        try {
+          if (iyzicoMu(url)) {
+            sonuc.then(function (yanit) {
+              yanit.clone().text().then(kodGoster).catch(function () {});
+            }).catch(function () {});
+          }
+        } catch (e) {}
+        return sonuc; // yanit oldugu gibi geciyor
+      };
+    })();
+
     // ── CART & ORDER SUMMARY ──
     const WORKER_URL = 'https://telahome-pay.laleerkaslan.workers.dev';
     const items = Cart.getItems();
