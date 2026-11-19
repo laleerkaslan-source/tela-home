@@ -657,12 +657,56 @@
           document.querySelector('.secure-badge').style.display = 'none';
           payBtn.style.display = 'none';
           const iyzicoDiv = document.getElementById('iyzicoForm');
-          iyzicoDiv.innerHTML = '<p style="text-align:center;margin-bottom:12px;color:var(--brown);font-weight:600;">Kart bilgilerinizi girin</p>' + icerik;
+          iyzicoDiv.innerHTML = '<p style="text-align:center;margin-bottom:12px;color:var(--brown);font-weight:600;">Kart bilgilerinizi girin</p>' +
+            '<p id="formYukleniyor" style="text-align:center;color:var(--gray);font-size:0.9rem;">' +
+            '<span class="spinner"></span> Güvenli ödeme formu yükleniyor...</p>' + icerik;
           iyzicoDiv.querySelectorAll('script').forEach(function(oldScript) {
             var newScript = document.createElement('script');
             if (oldScript.src) { newScript.src = oldScript.src; } else { newScript.textContent = oldScript.textContent; }
             oldScript.parentNode.replaceChild(newScript, oldScript);
           });
+        };
+
+        // Form GERCEKTEN cizildi mi? iyzico'nun bootstrap'i cdn.iyzipay.com'dan
+        // bundle.js cekiyor. O dosya gelmezse (icerik engelleyici eklenti, DNS,
+        // cok yavas baglanti) HICBIR hata cikmiyor: alici formu ve buton zaten
+        // gizlenmis oluyor, musteri bos ekranda kaliyor ve geri donus yolu yok.
+        // Safari'de bir musteride tam bu yasandi (19 Kasim 2026).
+        const formCizildiMi = function () {
+          const k = document.getElementById('iyzipay-checkout-form');
+          return !!(k && (k.querySelector('input') || k.getBoundingClientRect().height > 80));
+        };
+
+        const cizimiBekle = async function () {
+          const SURE_MS = 15000, ARALIK_MS = 500;
+          for (let gecen = 0; gecen < SURE_MS; gecen += ARALIK_MS) {
+            if (formCizildiMi()) return true;
+            await new Promise(function (r) { setTimeout(r, ARALIK_MS); });
+          }
+          return formCizildiMi();
+        };
+
+        // Kurtarma SAYFAYI YENILIYOR, akisi tekrar calistirmiyor. Zorunlu:
+        // iyzico'nun bootstrap'i "if (typeof iyziInit == 'undefined')" ile
+        // korunuyor, yani ayni sayfada ikinci enjeksiyon sessizce hicbir sey
+        // yapmaz. Yeniden denemenin tek calisan yolu temiz bir sayfa.
+        const kurtarmaGoster = function () {
+          const iyzicoDiv = document.getElementById('iyzicoForm');
+          iyzicoDiv.innerHTML = '';
+          payError.innerHTML =
+            '<strong>Ödeme formu yüklenemedi.</strong><br>' +
+            'Tarayıcınızdaki bir reklam/içerik engelleyici ödeme formunu engelliyor olabilir. ' +
+            'Sayfayı yenileyip tekrar deneyebilir, ya da siparişinizi WhatsApp\'tan verebilirsiniz.' +
+            '<div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">' +
+            '<button type="button" id="yenileBtn" style="padding:10px 18px;border:0;border-radius:8px;' +
+            'background:var(--brown);color:#fff;font-weight:700;cursor:pointer;">Sayfayı yenile</button>' +
+            '<a href="https://wa.me/905063977307" target="_blank" rel="noopener" ' +
+            'style="padding:10px 18px;border-radius:8px;background:#25d366;color:#fff;' +
+            'font-weight:700;text-decoration:none;">WhatsApp ile sipariş</a></div>';
+          payError.style.display = 'block';
+          payError.scrollIntoView({ block: 'center' });
+          const yenile = document.getElementById('yenileBtn');
+          if (yenile) yenile.addEventListener('click', function () { location.reload(); });
         };
 
         for (let deneme = 1; deneme <= DENEME_SAYISI; deneme++) {
@@ -710,6 +754,13 @@
           if (data.error) console.warn('create-payment kalici hata:', data.error);
           kaliciHataMesaji = data.message || null;
           break;
+        }
+
+        if (basarili) {
+          const cizildi = await cizimiBekle();
+          const yuklemeNotu = document.getElementById('formYukleniyor');
+          if (yuklemeNotu) yuklemeNotu.remove();
+          if (!cizildi) kurtarmaGoster();
         }
 
         if (!basarili) {
